@@ -10,11 +10,11 @@ const commentSchema = mongoose.Schema({
     },
     wname:{
         type: String,
-        maxlength: 10
+        maxLength: 10
     },
     content:{
         type: String,
-        maxlength: 50
+        maxLength: 50
     }
 })
 

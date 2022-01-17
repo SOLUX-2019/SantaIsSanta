@@ -7,14 +7,14 @@ const postSchema = mongoose.Schema({
     },
     title:{
         type: String,
-        maxlength: 20
+        maxLength: 20
     },
     pid:{
         type: Number
     },
     wname:{
         type: String,
-        maxlength: 10
+        maxLength: 10
     },
     date:{
         type: Date

@@ -2,24 +2,28 @@ const { ObjectId } = require('bson');
 const mongoose = require('mongoose');
 
 const userSchema = mongoose.Schema({
-    _id:{
-        type: ObjectId
-    },
-    password:{
+    name:{
         type:String,
-        minlength:6
+        maxLength:10,
+        required : true
     },
     id:{
         type:String,
-        maxlength:12
+        maxLength:12,
+        required : true
     },
-    name:{
+    password:{
         type:String,
-        maxlength:10
+        minlength:6,
+        required : true
     },
     user_info:{
         type:String,
-        maxlength:30
+        maxLength:30,
+        required : true
+    },
+    _id:{
+        type: ObjectId
     },
     birth:{
         type:Date

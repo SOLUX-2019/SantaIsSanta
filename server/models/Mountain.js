@@ -7,7 +7,7 @@ const mountainSchema = mongoose.Schema({
     },
     name:{
         type:String,
-        maxlength:5
+        maxLength:5
     },
     address:{
         type:String,
@@ -23,12 +23,12 @@ const mountainSchema = mongoose.Schema({
     },
     review:{
         type:String,
-        maxlength:20
+        maxLength:20
     },
     rescue:{
         type:String,
     },
-    warining:{
+    warning:{
         type:String,
     }
     })
