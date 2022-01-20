@@ -9,8 +9,8 @@ const Body = styled.div`
   align-items: center;
 
   img {
-    width: 40%;
-    height: 40%;
+    width: 30%;
+    height: 30%;
     border: 0.5px solid grey;
     padding: 5px;
     margin: 50px;

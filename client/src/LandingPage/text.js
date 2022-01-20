@@ -2,10 +2,10 @@ import styled from "styled-components";
 
 const Wrap = styled.div`
   border: 1px solid black;
-  padding: 100px;
+  padding: 60px;
   margin: 50px;
 
-  height: 40%;
+  height: 30%;
   border: 1px solid black;
 
   justify-content: center;
