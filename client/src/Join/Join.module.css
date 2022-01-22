@@ -1,0 +1,80 @@
+.Wrapper {
+    height: 100%;
+}
+
+.container {
+    background-color: #F5F6F8;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.joinHeader {
+    font-size: 3em;
+}
+
+.joinForm {
+    background-color: #F5F6F8;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+}
+
+.rowGroup {
+    /* background-color:cadetblue; */
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 50px;
+    /* align-items: center; */
+}
+
+.joinRow {
+    /* background-color:orange; */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.joinTitle {
+    width: 100%;
+    margin: 20px 0px 10px 0px;
+}
+
+.joinInput {
+    width: 100%;
+    height: 30px;
+    font-size: 1em;
+    padding: 12px 0px;
+    border: 1px solid lightgray;
+    border-radius: 4px;
+}
+
+ #gender {
+    height: 56px;
+    font-weight: lighter;
+}
+/* 
+.msg {
+    background-color: orchid;
+} */
+
+.joinButton {
+    background-color: #1E4620;
+    color: white;
+    font-weight: bold;
+    width: 30%;
+    font-size: 1.3em;
+    padding: 15px 0px;
+    border: 1px solid #1E4620;
+    border-radius: 4px;
+}
+
+.joinButton:hover {
+    cursor: pointer;
+}
