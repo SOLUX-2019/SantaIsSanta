@@ -1,7 +1,7 @@
-import logo from "../img/logo_titleO.png";
 import styled from "styled-components";
 import TextComponent from "./text";
 import WeatherInfo from "./WeatherInfo";
+import logo from "../assets/img/logo_titleO.png";
 
 const Body = styled.div`
   display: flex;
