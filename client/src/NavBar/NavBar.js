@@ -1,60 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+
 import {
-  NavBarWrap,
+  NavWrap,
+  Logo,
   Links,
   DropDown,
+  DropDownButton,
   DropDownContents,
-  Logo,
 } from "./styledNav";
 
 const NavBar = () => {
-  let isLogin = false;
+  const [isLogin, setIsLogin] = useState(false);
 
   return (
-    <NavBarWrap>
-      <Logo to="/">SantaIsSanta</Logo>
+    <NavWrap>
+      <Logo>SantaIsSanta</Logo>
       <Links>
         <DropDown>
-          지역별
+          <DropDownButton>지역별</DropDownButton>
           <DropDownContents>
-            <Link to="/" className="textedLink">
-              수도권
-            </Link>
-            <Link to="#" className="textedLink">
-              강원도
-            </Link>
-            <Link to="#" className="textedLink">
-              경상도
-            </Link>
-            <Link to="#" className="textedLink">
-              전라도
-            </Link>
-            <Link to="#" className="textedLink">
-              충청도
-            </Link>
-            <Link to="#" className="textedLink">
-              제주도
-            </Link>
+            <Link to="/">수도권</Link>
+            <Link to="/">강원도</Link>
+            <Link to="/">경상도</Link>
+            <Link to="/">전라도</Link>
+            <Link to="/">충청도</Link>
+            <Link to="/">제주도</Link>
           </DropDownContents>
         </DropDown>
-        <Link to="" className="textedLink">
-          커뮤니티
-        </Link>
-        {isLogin ? (
-          <Link to="/" className="textedLink">
-            로그인
-          </Link>
-        ) : (
-          <Link to="/" className="textedLink">
-            로그아웃
-          </Link>
-        )}
-        <Link to="/" className="textedLink">
-          마이페이지
-        </Link>
+        <Link to="/">커뮤니티</Link>
+        {isLogin ? <Link to="/">로그인</Link> : <Link to="/">로그아웃</Link>}
+        <Link to="/">마이페이지</Link>
       </Links>
-    </NavBarWrap>
+    </NavWrap>
   );
 };
 
