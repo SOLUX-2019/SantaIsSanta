@@ -43,7 +43,7 @@ app.post('/register', (req, res) => {
     })
 })
 
-addEventListener.post('/login', (res, req)=>{
+app.post('/login', (res, req)=>{
     User.findOne({email:req.body.email}, (err, user) =>{
         //이메일이 데이터베이스에 있는지 확인
         if(!user){
@@ -56,7 +56,7 @@ addEventListener.post('/login', (res, req)=>{
     user.comparePassword(req.body.comparePassword,(err, isMatch)=>{
         if(!isMatch)
             return res.json({loginSuccess:false, message:"비밀번호가 틀렸습니다."})
-        user.generaToken((err,user) => {
+        user.generateToken((err,user) => {
             if(err) return res.status(400).send(err);
 
             //토큰 저장
@@ -89,7 +89,6 @@ app.get('/auth', auth, (req, res) => {
 
 
 app.get('/logout', auth, (req, res) => {
-    // console.log('req.user', req.user)
     User.findOneAndUpdate({ _id: req.user._id },
         { token: "" }
         , (err, user) => {
