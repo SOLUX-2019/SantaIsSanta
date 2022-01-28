@@ -5,6 +5,7 @@ import NavBar from "./NavBar/NavBar";
 import Login from "./Login/Login";
 import Join from "./Join/Join";
 import ModifyProfile from "./Profile/ModifyProfile";
+import MyPage from "./MyPage/MyPage";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/join" element={<Join />} />
         <Route path="/modifyProfile" element={<ModifyProfile />} />
+        <Route path="/myPage" element={<MyPage />} />
       </Routes>
     </BrowserRouter>
   );
