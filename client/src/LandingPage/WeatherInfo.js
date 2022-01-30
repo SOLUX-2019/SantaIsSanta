@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import hot from "../img/hot.png";
-import cold from "../img/cold.png";
+import hot from "../assets/img/hot.png";
+import cold from "../assets/img/cold.png";
 
 const Weather = styled.div`
   display: flex;
