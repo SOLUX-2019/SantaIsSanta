@@ -11,7 +11,7 @@ import {
 } from "./styledNav";
 
 const NavBar = () => {
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
 
   return (
     <NavWrap>
@@ -28,9 +28,9 @@ const NavBar = () => {
             <Link to="/">제주도</Link>
           </DropDownContents>
         </DropDown>
-        <Link to="/">커뮤니티</Link>
+        <Link to="/community">커뮤니티</Link>
         {isLogin ? <Link to="/">로그인</Link> : <Link to="/">로그아웃</Link>}
-        <Link to="/">마이페이지</Link>
+        <Link to="/myPage">마이페이지</Link>
       </Links>
     </NavWrap>
   );
