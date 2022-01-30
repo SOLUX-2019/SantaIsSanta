@@ -62,7 +62,7 @@ userSchema.pre('save', function(next){
     }
 })
 
-userSchema.methods.comparePassword=function(plainPassword, cb){
+userSchema.methods.comparePassword = function(plainPassword, cb){
     //암호화된 비밀번호와 일치하는지 확인
     bcrypt.compare(plainPassword, this.password, function(err, isMatch){
         if(err) return cb(err);
@@ -87,10 +87,10 @@ userSchema.methods.generateToken = function(cb){
 
 userSchema.statics.findByToken = function(token, cb) {
     var user = this;
-   
+
     //토큰 디코드 
     jwt.verify(token, 'secretToken', function (err, decoded) {
-        //유저 아이디를 이용해서 유저를 찾고
+        //유저 아이디를 이용해서 유저를 찾은 후
         //클라이언트에서 가져온 토큰과 DB에 보관된 토큰 일치확인
         user.findOne({ "_id": decoded, "token": token }, function (err, user) {
             if (err) return cb(err);
