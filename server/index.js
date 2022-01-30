@@ -45,13 +45,14 @@ app.post('/register', (req, res) => {
 
 app.post('/login', (res, req)=>{
     User.findOne({id:req.body.id}, (err, user) =>{
-        //이메일이 데이터베이스에 있는지 확인
+        //아이디가 데이터베이스에 있는지 확인
         if(!user){
             return res.json({
                 loginSuccess: false,
                 message:"제공된 아이디에 해당하는 유저가 없습니다."
             })
         }
+
 
     user.comparePassword(req.body.comparePassword,(err, isMatch)=>{
         if(!isMatch)
