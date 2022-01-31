@@ -60,6 +60,6 @@ const Join = () => {
            </Container>
         </Wrapper>
     );
-}
+};
 
 export default Join;
