@@ -8,6 +8,8 @@ import ModifyProfile from "./Profile/ModifyProfile";
 import MyPage from "./MyPage/MyPage";
 import PostList from "./community/PostList/PostList";
 import WritingPage from "./community/WritingPage";
+import Mountain from "./Mountain/InfoPage/Mountain";
+import RegionPage from "./Mountain/RegionPage/RegionPage";
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
         <Route path="/myPage" element={<MyPage />} />
         <Route path="/community" element={<PostList />} />
         <Route path="/community/write" element={<WritingPage />} />
+        <Route path="/mountain/:region" element={<RegionPage />} />
+        <Route path="/mountain/:region/:mid" element={<Mountain />} />
       </Routes>
     </BrowserRouter>
   );
