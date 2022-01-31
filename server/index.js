@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const port = 3000;
+const port = 5000;
 const bodyParser = require('body-parser')
 
 const config = require('./config/key')
@@ -38,6 +38,10 @@ app.post('/register', (req, res) => {
             success: true
         })
     })
+})
+
+app.get('/login', (req, res) => {
+    
 })
 
 app.listen(port, () => {
