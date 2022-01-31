@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+import "../../src/assets/font/font.css";
 
 const Login = () => {
     const Container = styled.div`
@@ -13,6 +15,7 @@ const Login = () => {
 
     const Header = styled.h1`
         font-size: 3em;
+        font-family: "Pretendard";
     `;
 
     const Form = styled.form`
@@ -36,18 +39,20 @@ const Login = () => {
             background-color: #1E4620;
             color: white;
             font-weight: bold;
+            font-family: "Pretendard";
             width: 30%;
             font-size: 1.5em;
             padding: 17px 0px;
             margin-top: 40px;
             border: 1px solid #1E4620;
             border-radius: 4px;
-        }
+            text-align: center;
+            text-decoration: none;
 
-        button:hover {
-            cursor: pointer;
+            &:hover {
+                cursor: pointer;
+            }
         }
-        
     `;
 
     const Footer = styled.div`
@@ -60,12 +65,20 @@ const Login = () => {
         
         div {
             font-size: 0.9em;
+            font-family: "Pretendard";
         }
         
-        .link:hover {
-            font-weight: bold;
-            text-decoration: underline;
-            cursor: pointer;
+        .link {
+            font-size: 0.9em;
+            font-family: "Pretendard";
+            text-decoration: none;
+            color: black;
+
+            &:hover {
+                font-weight: bold;
+                text-decoration: underline;
+                cursor: pointer;
+            }
         }
         
     `;
@@ -77,11 +90,11 @@ const Login = () => {
                 <Form>
                     <input name="userId" type="text" placeholder="아이디" />
                     <input name="password" type="password" placeholder="비밀번호" />
-                    <button type="button">로그인</button>
+                    <button type="button" onClick={() => window.location.href='/'}>로그인</button>
                 </Form>
                 <Footer>
                     <div>계정이 없으신가요?</div>
-                    <div className="link">회원가입하기</div>
+                    <Link className="link" to="/join">회원가입하기</Link>
                 </Footer>
             </Container>
         </div>
