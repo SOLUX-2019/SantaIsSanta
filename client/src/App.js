@@ -8,6 +8,7 @@ import ModifyProfile from "./Profile/ModifyProfile";
 import MyPage from "./MyPage/MyPage";
 import PostList from "./community/PostList/PostList";
 import WritingPage from "./community/WritingPage";
+import PostViewPage from "./community/PostView";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/myPage" element={<MyPage />} />
         <Route path="/community" element={<PostList />} />
         <Route path="/community/write" element={<WritingPage />} />
+        <Route path="/community/post/0" element={<PostViewPage />} />
       </Routes>
     </BrowserRouter>
   );
