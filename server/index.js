@@ -1,6 +1,8 @@
 const express = require('express')
+const path = require('path')
 const app = express()
-const port = 3000;
+const cors = require("cors")
+const port = process.env.PORT || 5000;
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const config = require('./config/key')
@@ -8,6 +10,10 @@ const config = require('./config/key')
 const { User } = require("./models/User")
 const { auth } = require('./middleware/auth');
 
+const corsOptions = {
+    origin : true,
+    credentials: true
+}
 
 // application/x-www-form-urlendcoded 형식의 데이터를
 // 가져와서 분석할 수 있도록
@@ -16,6 +22,13 @@ app.use(bodyParser.urlencoded({ extended: true}))
 // 가져와서 분석할 수 있도록
 app.use(bodyParser.json())
 app.use(cookieParser());
+app.use(cors(corsOptions))
+
+app.use("/api", function (req, res) {
+    res.send('Hello world');
+});
+
+app.listen(port, () => console.log(`Listening on port ${port}`))
 
 const mongoose = require('mongoose')
 mongoose.connect(config.mongoURI,{
@@ -24,9 +37,11 @@ mongoose.connect(config.mongoURI,{
 }).then(() => console.log('MongoDB Connected...'))
 .catch(err => console.log(err))
 
+/*
 app.get('/', (req, res) => {
-    res.send('Hello World!')
+    
 })
+*/
 
 app.post('/register', (req, res) => {
     // 회원가입 할 때 필요한 정보들을 클라이언트에서 가저오면,
@@ -96,8 +111,4 @@ app.get('/logout', auth, (req, res) => {
             success: true
         })
     })
-})
-
-app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
 })
