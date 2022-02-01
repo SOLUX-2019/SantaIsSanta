@@ -15,6 +15,7 @@ export const Container = styled.div`
 
 export const Header = styled.h1`
     font-size: 3em;
+    font-family: "Pretendard";
 `;
 
 export const Form = styled.form`
@@ -30,6 +31,10 @@ export const RowGroup = styled.div`
     display: flex;
     flex-direction: column;
     margin-bottom: 50px;
+
+    #text {
+        font-family: "Pretendard";
+    }
 `;
 
 export const Row = styled.div`
@@ -42,6 +47,7 @@ export const Row = styled.div`
 export const Title = styled.div`
     width: 100%;
     margin: 20px 0px 10px 0px;
+    font-family: "Pretendard";
 `;
 
 export const Input = styled.input`
@@ -67,6 +73,7 @@ export const Button = styled.button`
     background-color: #1E4620;
     color: white;
     font-weight: bold;
+    font-family: "Pretendard";
     width: 30%;
     font-size: 1.3em;
     padding: 15px 0px;

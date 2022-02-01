@@ -1,5 +1,6 @@
 import React from 'react';
 import { Wrapper, Container, Header, Form, RowGroup, Row, Title, Input, Select, Button } from './styledJoin';
+import { Link } from "react-router-dom";
 
 const Join = () => {
     var today = new Date();
@@ -35,7 +36,7 @@ const Join = () => {
 
                     {/* 선택입력 그룹 */}
                     <RowGroup>
-                        <div>선택입력</div>
+                        <div id="text">선택입력</div>
                         <Row>
                             <Title>생년월일</Title>
                             <Input name="birth" type="date" max={dateString} title="선택입력"/>
@@ -55,7 +56,7 @@ const Join = () => {
                     </RowGroup>
 
                     {/* 버튼 */}
-                    <Button type="button">가입하기</Button>
+                    <Button type="button" onClick={() => window.location.href='/'}>가입하기</Button>
                </Form>
            </Container>
         </Wrapper>

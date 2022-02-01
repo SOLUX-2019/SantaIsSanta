@@ -42,7 +42,7 @@ const ModifyProfile = () => {
                     </RowGroup>
 
                     {/* 버튼 */}
-                    <Button type="button">수정 완료</Button>
+                    <Button type="button" onClick={() => window.location.href='/'}>수정 완료</Button>
                </Form>
            </Container>
         </Wrapper>

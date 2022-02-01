@@ -29,7 +29,7 @@ const NavBar = () => {
           </DropDownContents>
         </DropDown>
         <Link to="/community">커뮤니티</Link>
-        {isLogin ? <Link to="/">로그인</Link> : <Link to="/">로그아웃</Link>}
+        {isLogin ? <Link to="/login">로그인</Link> : <Link to="/">로그아웃</Link>}
         <Link to="/myPage">마이페이지</Link>
       </Links>
     </NavWrap>
