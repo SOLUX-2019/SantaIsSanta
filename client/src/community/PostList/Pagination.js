@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
 const PageController = () => {
   const limit = 10;
@@ -13,11 +14,11 @@ const PageController = () => {
 
   return (
     <PageWrap>
-      <button className="prev">◀</button>
+      <FaAngleLeft className="page-btn" onClick={() => {}} />
       <div>
         {currentPage}/{pageCount}
       </div>
-      <button className="next">▶</button>
+      <FaAngleRight className="page-btn" onClick={() => {}} />
     </PageWrap>
   );
 };
@@ -29,13 +30,16 @@ const PageWrap = styled.div`
   width: 100%;
   align-items: center;
   margin: 20px;
-  div, button {
+
+  div {
     display: inline-block;
-    width: 30%
     padding: 8px 16px;
+    width: 30px;
+    font-size: 18px;
+  }
+  .page-btn {
+    width: 30px;
+    height: 30px;
     cursor: pointer;
-    border: none;
-    outline: none;
-    background-color: inherit;
   }
 `;
