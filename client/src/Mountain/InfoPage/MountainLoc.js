@@ -36,7 +36,7 @@ const MountainLoc = ({region, mid}) => {
             <FaMountain />
             <FaAngleRight />
             <PreviousPage>
-                <Link to={`/mountain/${region}`} className="link" title="페이지 이동"> {region}</Link>
+                <Link to={`/mountain/region?region=${region}`} className="link" title="페이지 이동"> {region}</Link>
             </PreviousPage>
             <FaAngleRight />
             <LastPage> {mid}</LastPage>
