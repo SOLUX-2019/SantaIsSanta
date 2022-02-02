@@ -60,12 +60,13 @@ const MountainList = ({region}) => {
 
     const Text = styled.div`
         margin: auto;
-        font-size: 25px;
+        margin-top: 5px;
+        font-size: 20px;
         color: #222;
         font-family: "Jalnan";
 
         ${Cont}:hover & {
-            color: #0066eb;
+            color: #dd5528;
         }
     `;
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { FaMountain, FaAngleRight } from "react-icons/fa";
 import "../../assets/font/font.css";
@@ -17,6 +18,11 @@ const MountainLoc = ({region, mid}) => {
         :hover {
             cursor: pointer;
         }
+
+        .link {
+            text-decoration: none;
+            color: black;
+        }
     `;
 
     const LastPage = styled.span`
@@ -29,7 +35,9 @@ const MountainLoc = ({region, mid}) => {
         <Loc>
             <FaMountain />
             <FaAngleRight />
-            <PreviousPage title="페이지 이동"> {region} </PreviousPage>
+            <PreviousPage>
+                <Link to={`/mountain/${region}`} className="link" title="페이지 이동"> {region}</Link>
+            </PreviousPage>
             <FaAngleRight />
             <LastPage> {mid}</LastPage>
         </Loc>
