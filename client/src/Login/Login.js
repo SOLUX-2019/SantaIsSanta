@@ -103,7 +103,7 @@ const Login = () => {
             console.log(3)
             var login = res.data.loginSuccess
             if(login){
-                this.props.history.push('/')
+                window.location.href='/'
             }
         }).catch(error=>{
             console.log(error);
