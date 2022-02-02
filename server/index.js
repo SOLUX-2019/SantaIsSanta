@@ -43,7 +43,7 @@ mongoose.connect(config.mongoURI,{
 .catch(err => console.log(err))
 
 
-app.post('/register', (req, res) => {
+app.post('/api/user/register', (req, res) => {
     // 회원가입 할 때 필요한 정보들을 클라이언트에서 가저오면,
     // 그것들을 디비에 넣음
 
