@@ -24,11 +24,16 @@ app.use(bodyParser.json())
 app.use(cookieParser());
 app.use(cors(corsOptions))
 
-app.use("/api", function (req, res) {
-    res.send('Hello world');
-});
 
 app.listen(port, () => console.log(`Listening on port ${port}`))
+
+var db;
+const MongoClient = require('mongodb').MongoClient;
+MongoClient.connect(config.mongoURI, function (err, client) {
+    if (err) return console.log(err);
+
+    db = client.db("SantaIsSanta");
+})
 
 const mongoose = require('mongoose')
 mongoose.connect(config.mongoURI,{
@@ -37,11 +42,6 @@ mongoose.connect(config.mongoURI,{
 }).then(() => console.log('MongoDB Connected...'))
 .catch(err => console.log(err))
 
-/*
-app.get('/', (req, res) => {
-    
-})
-*/
 
 app.post('/register', (req, res) => {
     // 회원가입 할 때 필요한 정보들을 클라이언트에서 가저오면,
@@ -58,31 +58,37 @@ app.post('/register', (req, res) => {
     })
 })
 
-app.post('/login', (res, req)=>{
-    User.findOne({id:req.body.id}, (err, user) =>{
+app.post('/api/user/login', (res, req)=>{
+    console.log(res.body)
+    db.collection('user').findOne({id:res.body.id}, (err, user) =>{
+        console.log(2)
+        console.log(user)
         //아이디가 데이터베이스에 있는지 확인
         if(!user){
-            return res.json({
+            console.log('디비에 유저 없음')
+            return req.json({
                 loginSuccess: false,
                 message:"제공된 아이디에 해당하는 유저가 없습니다."
             })
         }
-
-
-    user.comparePassword(req.body.comparePassword,(err, isMatch)=>{
-        if(!isMatch)
+        if(user.password != res.body.password){
+            console.log('비밀번호 틀림')
             return res.json({loginSuccess:false, message:"비밀번호가 틀렸습니다."})
-        user.generateToken((err,user) => {
-            if(err) return res.status(400).send(err);
+        }
+        console.log('로그인 성공')
+        return req.status(200)
+        .json({ loginSuccess:true, userId:user._id})
 
-            //토큰 저장
-            res.cookie("x_auth", user.token)
-            .status(200)
-            .json({ loginSuccess:true, userId:user._id})
-            })
+        // User.generateToken((err,user) => {
+        //     if(err) return res.status(400).send(err);
+
+        //     //토큰 저장
+        //     res.cookie("x_auth", user.token)
+        //     .status(200)
+        //     .json({ loginSuccess:true, userId:user._id})
+        //     })
         })   
     })
-})
 
 
 
