@@ -5,6 +5,7 @@ const saltRounds = 10;
 const jwt = require('jsonwebtoken');
 
 const userSchema = mongoose.Schema({
+   
     name:{
         type:String,
         maxLength:10,
@@ -25,9 +26,6 @@ const userSchema = mongoose.Schema({
         maxLength:30,
         required : true
     },
-    _id:{
-        type: ObjectId
-    },
     birth:{
         type:Date
     },
@@ -47,8 +45,10 @@ const userSchema = mongoose.Schema({
 userSchema.pre('save', function(next){
     var user = this;
     
+    console.log(123)
     if (user.isModified('password')){
         // 비밀번호 암호화
+        console.log(456)
         bcrypt.genSalt(saltRounds, function(err, salt){
             if(err) return next(err)
             bcrypt.hash(user.password, salt, function(err, hash){
