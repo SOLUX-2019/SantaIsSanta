@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams } from "react-router";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import MountainLoc from './MountainLoc';
 import MountainHeader from './MountainHeader';
@@ -8,7 +8,9 @@ import MountainReview from './MountainReview';
 import MountainMap from './MountainMap';
 
 const Mountain = () => {
-    const {region, mid} = useParams();
+    const search = useLocation().search;
+    const region = new URLSearchParams(search).get('region');
+    const mid = new URLSearchParams(search).get('mid');
 
     const Mountain = styled.div`
         height: 100%;

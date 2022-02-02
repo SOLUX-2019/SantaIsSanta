@@ -25,8 +25,8 @@ function App() {
         <Route path="/community" element={<PostList />} />
         <Route path="/community/write" element={<WritingPage />} />
         <Route path="/community/post/0" element={<PostViewPage />} />
-        <Route path="/mountain/:region" element={<RegionPage />} />
-        <Route path="/mountain/:region/:mid" element={<Mountain />} />
+        <Route path="/mountain/region" element={<RegionPage />} />
+        <Route path="/mountain/info" element={<Mountain />} />
       </Routes>
     </BrowserRouter>
   );

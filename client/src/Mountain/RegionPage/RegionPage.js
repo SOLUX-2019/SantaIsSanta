@@ -1,11 +1,12 @@
 import React from 'react';
-import { useParams } from "react-router";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { FaMountain, FaAngleRight } from "react-icons/fa";
 import MountainList from './MountainList';
 
 const RegionPage = () => {
-    const {region} = useParams();
+    const search = useLocation().search;
+    const region = new URLSearchParams(search).get('region');
 
     const Region = styled.div`
         height: 100%;

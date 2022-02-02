@@ -85,7 +85,7 @@ const MountainList = ({region}) => {
                 <Cont>
                     <Image>
                         <img src={jirisan} alt="지리산" />
-                        <div className="img_hover" title="페이지 이동">자세히 보기</div>
+                        <div className="img_hover" title="페이지 이동" onClick={() => window.location.href=`/mountain/info?region=${region}&mid=지리산`}>자세히 보기</div>
                     </Image>
                     <Text>지리산</Text>
                 </Cont>
