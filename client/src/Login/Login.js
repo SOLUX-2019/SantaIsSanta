@@ -1,6 +1,6 @@
 import React from 'react';
-import Axios from 'axios';
 import styled from "styled-components";
+import Axios from 'axios';
 import { Link } from "react-router-dom";
 import "../../src/assets/font/font.css";
 
@@ -83,42 +83,15 @@ const Login = () => {
         }
         
     `;
-
-
-    const onSubmitHandler = (event) =>{
-        event.preventDefault()
-
-        const id = document.getElementById("userId");
-        const password = document.getElementById('password')
-
-        Axios({
-            method:"POST",
-            url: 'http://localhost:5000/api/user/login',
-            data: {
-                id: id.value,
-                password: password.value
-            }
-        })
-        .then((res)=>{
-            console.log(3)
-            var login = res.data.loginSuccess
-            if(login){
-                window.location.href='/'
-            }
-        }).catch(error=>{
-            console.log(error);
-            throw new Error(error);
-        });
-    }
     
     return (
         <div className="Login">
             <Container>
                 <Header>로그인</Header>
-                <Form onSubmit={onSubmitHandler}>
-                    <input id="userId" type="text" placeholder='아이디' />
-                    <input id="password" type="password" placeholder='비밀번호' />
-                    <button type="submit">로그인</button>
+                <Form>
+                    <input name="userId" type="text" placeholder="아이디" />
+                    <input name="password" type="password" placeholder="비밀번호" />
+                    <button type="button" onClick={() => window.location.href='/'}>로그인</button>
                 </Form>
                 <Footer>
                     <div>계정이 없으신가요?</div>
@@ -130,3 +103,48 @@ const Login = () => {
 }
 
 export default Login;
+
+
+//     const onSubmitHandler = (event) =>{
+//         event.preventDefault()
+
+//         const id = document.getElementById("userId");
+//         const password = document.getElementById('password')
+
+//         Axios({
+//             method:"POST",
+//             url: 'http://localhost:5000/api/user/login',
+//             data: {
+//                 id: id.value,
+//                 password: password.value
+//             }
+//         })
+//         .then((res)=>{
+//             console.log(3)
+//             var login = res.data.loginSuccess
+//             if(login){
+//                 window.location.href='/'
+//             }
+//         }).catch(error=>{
+//             console.log(error);
+//             throw new Error(error);
+//         });
+//     }
+    
+//     return (
+//         <div className="Login">
+//             <Container>
+//                 <Header>로그인</Header>
+//                 <Form onSubmit={onSubmitHandler}>
+//                     <input id="userId" type="text" placeholder='아이디' />
+//                     <input id="password" type="password" placeholder='비밀번호' />
+//                     <button type="submit">로그인</button>
+//                 </Form>
+//                 <Footer>
+//                     <div>계정이 없으신가요?</div>
+//                     <Link className="link" to="/join">회원가입하기</Link>
+//                 </Footer>
+//             </Container>
+//         </div>
+//     );
+// }
