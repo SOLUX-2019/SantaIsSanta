@@ -1,6 +1,5 @@
-import defaultImg from "../assets/img/logo_titleO.png";
-import styled from "styled-components";
 import { useEffect, useState } from "react";
+import styled from "styled-components";
 import badge from "../assets/img/tempBadgeImg.png";
 
 const Container = styled.div`
@@ -17,7 +16,7 @@ const Container = styled.div`
 `;
 
 //뱃지확인창?? BageCollection
-const BadgeInfo = () => {
+const BadgeCollection = () => {
   const [postCount, setPostCount] = useState(0);
 
   useEffect(() => {
@@ -38,4 +37,4 @@ const BadgeInfo = () => {
     </div>
   );
 };
-export default BadgeInfo;
+export default BadgeCollection;

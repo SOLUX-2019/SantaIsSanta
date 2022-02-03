@@ -1,9 +1,9 @@
 import { useState } from "react";
 import styled from "styled-components";
-import defaultImg from "../assets/img/logo_titleO.png";
+import defaultImg from "../assets/img/logo_titleX.png";
 import PostList from "./PostList";
 import Profile from "./Profile";
-import BadgeInfo from "./BadgeInfo";
+import BadgeCollection from "./BadgeCollection";
 
 const Wrap = styled.div`
   h3.edit {
@@ -44,7 +44,7 @@ const MyPage = () => {
           <Profile user={user} />
         </TopContainer>
         <BottomContainer>
-          <BadgeInfo />
+          <BadgeCollection />
           <PostList />
         </BottomContainer>
       </Wrap>
