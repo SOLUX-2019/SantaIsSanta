@@ -49,16 +49,16 @@ app.post('/api/user/register', (req, res) => {
 
     const user = new User(req.body)
 
-    /*  user.save((err, userInfo) => {
+      user.save((err, userInfo) => {
         if(err) {
             return res.json({success: false, err})
         }
         return res.status(200).json({
             success: true
         })
-    })*/
+    })
 
-    db.collection('user').insertOne(user, (err, user) =>{
+   /* db.collection('user').insertOne(user, (err, user) =>{
         if(err) {
             console.log(err)
             return res.json({success: false, err})
@@ -66,7 +66,7 @@ app.post('/api/user/register', (req, res) => {
         return res.status(200).json({
             success: true
         })
-        })   
+        })   */
 })
 
 app.post('/api/user/login', (res, req)=>{
