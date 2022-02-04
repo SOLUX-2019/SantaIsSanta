@@ -113,8 +113,30 @@ app.get('/auth', auth, (req, res) => {
     })
 })
 
+app.post('/api/user/modify', auth, (req, res) => {
+    console.log(1)
+    console.log(req.user)
+    console.log(2)
+    console.log(req.body)
+    User.findOneAndUpdate({ _id: req.user._id },
+        {$set:{ 
+            id: req.body.id,
+            user_info: req.body.user_info,
+            name: req.body.name,
+            birth: req.body.birth,
+            gender: req.body.gender
+        }}
+        , (err, user) => {
+        if (err) return res.json({ success: false, err });
+        return res.status(200).send({
+            success: true
+        })
+    })
+})
+
 
 app.get('/logout', auth, (req, res) => {
+    console.log(3)
     User.findOneAndUpdate({ _id: req.user._id },
         { token: "" }
         , (err, user) => {
