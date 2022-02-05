@@ -55,7 +55,7 @@ export const Input = styled.input`
     height: 30px;
     font-size: 1em;
     padding: 12px 0px;
-    border: 1px solid lightgray;
+    border: ${(props) => props.border || '1px solid lightgray'};
     border-radius: 4px;
 `;
 
@@ -80,6 +80,25 @@ export const Button = styled.button`
     border: 1px solid #1E4620;
     border-radius: 4px;
 
+    :hover {
+        cursor: pointer;
+    }
+`;
+
+export const ImgBox = styled.img`
+    width: 100px;
+    height: 100px;
+`;
+
+export const DelBtn = styled.button`
+    background-color: #E74C3C;
+    color: white;
+    font-weight: bold;
+    font-family: "Pretendard";
+    border-radius: 4px;
+    width: 50px;
+    margin: 10px 0px;
+    border: none;
     :hover {
         cursor: pointer;
     }
