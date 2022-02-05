@@ -8,6 +8,7 @@ const cookieParser = require('cookie-parser')
 const config = require('./config/key')
 
 const { User } = require("./models/User")
+const { Post } = require("./models/Post")
 const { auth } = require('./middleware/auth');
 
 const corsOptions = {
@@ -48,8 +49,8 @@ app.post('/api/user/register', (req, res) => {
     // 그것들을 디비에 넣음
 
     const user = new User(req.body)
-
-      user.save((err, userInfo) => {
+    
+    user.save((err, userInfo) => {
         if(err) {
             return res.json({success: false, err})
         }
@@ -58,17 +59,24 @@ app.post('/api/user/register', (req, res) => {
         })
     })
 
-   /* db.collection('user').insertOne(user, (err, user) =>{
-        if(err) {
-            console.log(err)
-            return res.json({success: false, err})
-        }
-        return res.status(200).json({
-            success: true
-        })
-        })   */
 })
 
+app.post('/community/post/upload', (req,res)=>{
+    //커뮤니티 글 저장
+    const post = Post(req.body)
+    var cnt =0;
+    post.save((err, content) => {
+        if(err){
+            console.log(err)
+            return res.json({success:false, err})
+        }        
+        return res.status(200).json({     
+            success:true
+        })
+    })
+
+
+})
 app.post('/api/user/login', (req, res)=>{
     console.log(req.body)
     User.findOne({id:req.body.id}, (err, user) =>{

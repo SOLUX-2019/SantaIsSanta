@@ -32,6 +32,10 @@ const userSchema = mongoose.Schema({
     gender:{
         type:Boolean
     },
+    badge_cnt:{
+        type:Number,
+        default:0
+    },
     image:{
     },
     token:{
