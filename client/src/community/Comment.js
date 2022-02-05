@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 import defaultImg from "../assets/img/logo_titleX.png";
 
@@ -65,10 +66,20 @@ export const Comment = ({ name, content }) => {
 };
 
 export const InputComment = () => {
+  const [comment, setComment] = useState("");
+
+  const handleCommentChange = (event) => {
+    setComment(event.target.value);
+  };
+
   return (
     <InputWrap>
       <form>
-        <textarea placeholder="댓글을 작성하세요"></textarea>
+        <textarea
+          placeholder="댓글을 작성하세요"
+          value={comment}
+          onChange={handleCommentChange}
+        ></textarea>
         <button>댓글 작성</button>
       </form>
     </InputWrap>
