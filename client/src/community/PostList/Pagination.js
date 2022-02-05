@@ -42,4 +42,7 @@ const PageWrap = styled.div`
     height: 30px;
     cursor: pointer;
   }
+  .page-btn :hover {
+    color: #dd5528;
+  }
 `;
