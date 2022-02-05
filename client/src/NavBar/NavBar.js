@@ -13,6 +13,9 @@ import {
 const NavBar = () => {
   const [isLogin, setIsLogin] = useState(true);
 
+  const regions = ['수도권', '강원도', '경상도', '전라도', '충청도', '제주도'];
+  const DropDownList = regions.map((region) => <Link key={region} to={`/mountain/region?region=${region}`}>{region}</Link>);
+  
   return (
     <NavWrap>
       <Logo>SantaIsSanta</Logo>
@@ -20,12 +23,7 @@ const NavBar = () => {
         <DropDown>
           <DropDownButton>지역별</DropDownButton>
           <DropDownContents>
-            <Link to="/">수도권</Link>
-            <Link to="/">강원도</Link>
-            <Link to="/">경상도</Link>
-            <Link to="/">전라도</Link>
-            <Link to="/">충청도</Link>
-            <Link to="/">제주도</Link>
+            {DropDownList}
           </DropDownContents>
         </DropDown>
         <Link to="/community">커뮤니티</Link>
