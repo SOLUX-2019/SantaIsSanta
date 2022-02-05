@@ -2,9 +2,7 @@ const { ObjectId } = require('bson');
 const mongoose = require('mongoose');
 
 const mountainSchema = mongoose.Schema({
-    _id:{
-        type: ObjectId
-    },
+   
     name:{
         type:String,
         maxLength:5
