@@ -8,34 +8,48 @@ export const PageTitle = styled.div`
 `;
 
 export const FormWrap = styled.div`
-  margin: 0 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  font-family: "Pretendard";
 
-  label {
-    display: block;
-    padding: 10px 0 10px 0;
+  table {
+    width: 80%;
+    border: 1px solid #ddd;
+    border-collapse: collapse;
+  }
+  th {
+    border-bottom: 1px solid #ddd;
+    padding: 7px 17px;
+    background-color: #f5f6f8;
+    min-width: 100px;
+    width: 20%;
+  }
+  td {
+    border-bottom: 1px solid #ddd;
+    width: 80%;
   }
 
   select {
+    margin: 4px;
     padding: 2px 2px;
     font-size: 16px;
   }
 
-  input {
-    width: 100%;
+  input,input: focus {
+    width: 94%;
     padding: 2px 10px;
+    border: none;
+    outline: none;
     font-size: 16px;
   }
 
-  textarea {
-    display: block;
-    height: 200px;
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    resize: none;
+  .ck-editor__editable {
+    min-height: 400px;
   }
 
-  div {
+  div.submit-btn {
     display: flex;
     justify-content: center;
   }
