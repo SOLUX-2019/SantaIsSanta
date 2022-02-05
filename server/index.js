@@ -61,22 +61,6 @@ app.post('/api/user/register', (req, res) => {
 
 })
 
-app.post('/community/post/upload', (req,res)=>{
-    //커뮤니티 글 저장
-    const post = Post(req.body)
-    var cnt =0;
-    post.save((err, content) => {
-        if(err){
-            console.log(err)
-            return res.json({success:false, err})
-        }        
-        return res.status(200).json({     
-            success:true
-        })
-    })
-
-
-})
 app.post('/api/user/login', (req, res)=>{
     console.log(req.body)
     User.findOne({id:req.body.id}, (err, user) =>{
@@ -153,4 +137,37 @@ app.get('/logout', auth, (req, res) => {
             success: true
         })
     })
+})
+
+
+app.post('/community/post/upload', (req,res)=>{
+    //커뮤니티 글 저장
+    const post = Post(req.body)
+    var cnt =0;
+    post.save((err, content) => {
+        if(err){
+            console.log(err)
+            return res.json({success:false, err})
+        }        
+        return res.status(200).json({     
+            success:true
+        })
+    })
+
+
+})
+
+app.delete('/community/post/:id',(req,res)=>{
+    //커뮤니티 글 삭제
+    Post.findByIdAndRemove(req.params.id, function (err, del){
+        if(err){
+            console.log(err)
+            return res.json({success:false, err})
+        }        
+        return res.status(200).json({     
+            success:true,
+            message:"deleted"
+        })
+    })
+
 })
