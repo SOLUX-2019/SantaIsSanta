@@ -15,7 +15,7 @@ const Join = () => {
     const [password, setPassword] = useState(null);
     const [name, setName] = useState(null);
     const [userInfo, setUserInfo] = useState(null);
-    const [gender, setGender] = useState("unchecked");
+    const [gender, setGender] = useState(null);
     const [birth, setBirth] = useState(null);
 
     //프로필 사진 업로드 안 할 시 기본 산타 이미지 백에 보냄?? 아님 null로??
@@ -23,21 +23,8 @@ const Join = () => {
     const [image, setImage] = useState(null); //이미지 원본
     const [imageURL, setImageURL] = useState(null); //화면에 이미지 미리보기를 띄우기 위한 blob type의 imgURL
 
-    // 선택한 gender를 bool 형식으로 변경
-    const genderHandler = () => {
-        if(gender=="M")
-            return 0;
-        else if(gender=='F')
-            return 1;
-        else
-            return null;
-    }
 
-    //DB에 보냄
     const submit = () => {
-        // bool형식으로 변경된 gender
-        const gender = genderHandler();
-
         //업로드한 이미지 보내기 - formData 객체로 보냄
         const formData = new FormData();
         formData.append('file', image);
@@ -92,10 +79,10 @@ const Join = () => {
                         </Row>
                         <Row>
                             <Title>성별</Title>
-                            <Select name="gender" title="선택입력" key={gender} defaultValue={gender} onChange={(e)=> setGender(e.target.value)}>
-                                <option value="unchecked">선택 안 함</option>
-                                <option value="M">남자</option>
-                                <option value="F">여자</option>
+                            <Select name="gender" title="선택입력" defaultValue={"null"} onChange={(e)=> setGender(JSON.parse(e.target.value))}>
+                                <option value="null">선택 안 함</option>
+                                <option value="0">남자</option>
+                                <option value="1">여자</option>
                             </Select>
                         </Row>
                         <Row>
