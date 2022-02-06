@@ -19,6 +19,7 @@ const postSchema = mongoose.Schema({
     wname:{
         type: String,
         maxLength: 10,
+        default:"",
         required : true
     },
     date:{
