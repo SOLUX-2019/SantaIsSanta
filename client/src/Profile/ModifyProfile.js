@@ -1,3 +1,4 @@
+import { Axios } from 'axios';
 import React, { useState, useEffect }from 'react';
 import { Wrapper, Container, Header, Form, RowGroup, Row, Title, Input, Select, Button } from '../Join/styledJoin';
 
@@ -21,7 +22,21 @@ const ModifyProfile = () => {
 
     //각 state값 백에 넘기기
     const submit = () => {
-        console.log({id, name, userInfo, birth, gender});
+        // console.log({id, name, userInfo, birth, gender});
+        Axios.post('/api/user/modify', {
+            id: id,
+            user_info: userInfo,
+            name: name,
+            birth: birth,
+            gender: gender
+        })
+        .then((res) => {
+            console.log(res.data);
+            if(res.data.success)
+                alert('회원정보가 수정되었습니다.');
+            else
+                console.log(res.data.err);
+        })
     };
 
     return (

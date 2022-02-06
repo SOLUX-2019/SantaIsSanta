@@ -9,8 +9,23 @@ const Login = () => {
     const [password, setPassword] = useState("");
 
     const submit = () => {
-        alert(`Welcome ${id}`);
-        window.location.href='/';
+       Axios.post('/api/user/login', {
+           id: id,
+           password: password
+       })
+       .then((res) => {
+           console.log(res.data);
+           if(res.data.loginSuccess) {
+               alert('Welcome');
+               window.location.href = '/';
+           }
+           else {
+               alert(res.data.message);
+           }
+       })
+
+        // alert(`Welcome ${id}`);
+        // window.location.href='/';
     };
 
     return (
