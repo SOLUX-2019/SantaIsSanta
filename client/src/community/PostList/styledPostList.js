@@ -9,11 +9,10 @@ export const TableWrap = styled.div`
     text-align: center;
     border-spacing: 0;
     font-family: "Pretendard";
+    font-size: 14px;
   }
   th {
     border-bottom: 1px solid #e8e8e8;
-    padding: 0;
-    font-size: 16px;
     padding: 10px 5px;
     font-weight: bold;
   }
@@ -46,12 +45,12 @@ export const TableWrap = styled.div`
     width: 100px;
     font-size: 1em;
     padding: 10px 0;
-    margin-top: 10px;
+    margin-right: 30px;
+    margin-bottom: 50px;
     border-radius: 4px;
     cursor: pointer;
     text-align: center;
     text-decoration: none;
-    margin-right: 30px;
     justify-content: center;
   }
 `;

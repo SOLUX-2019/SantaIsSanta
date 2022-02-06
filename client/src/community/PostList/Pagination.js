@@ -29,7 +29,7 @@ const PageWrap = styled.div`
   justify-content: center;
   width: 100%;
   align-items: center;
-  margin: 20px;
+  margin: 20px 0;
 
   div {
     display: inline-block;
