@@ -159,9 +159,8 @@ app.get('/api/user/logout', auth, (req, res) => {
 })
 
 //---------커뮤니티----------
-//커뮤니티 글 저장
+//커뮤니티 게시글 저장
 app.post('/community/post/upload', auth,(req,res)=>{
-    //커뮤니티 글 저장
     const post = Post(req.body)
     post.wname=req.user.id;
     post.save((err, content) => {

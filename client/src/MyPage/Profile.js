@@ -1,24 +1,44 @@
 import styled from "styled-components";
+import "../../src/assets/font/font.css";
 
 const Container = styled.div`
-  display: grid;
-  grid-template-columns: 100px 300px;
-  padding: 50px;
+  font-size: 20px;
+  td,
+  th {
+    padding: 5px;
+  }
+  th {
+    font-family: "Jalnan";
+    width: 100px;
+  }
+  td {
+    width: 250px;
+  }
 `;
 
 const Profile = ({ user }) => {
   console.log(user);
-  const { name, gender, date, info } = user;
+  const { name, gender, birth, info } = user;
   return (
     <Container>
-      <h3>이름: </h3>
-      <h4>{name}</h4>
-      <h3>성별: </h3>
-      <h4>{gender ? "남자 ♂" : "여자 ♀"}</h4>
-      <h3>생일:</h3>
-      <h4> {date}</h4>
-      <h3>한줄 소개: </h3>
-      <h4>{info}</h4>
+      <table>
+        <tr>
+          <th>이름</th>
+          <td>{name}</td>
+        </tr>
+        <tr>
+          <th>성별</th>
+          <td>{gender ? "남성" : "여성"}</td>
+        </tr>
+        <tr>
+          <th>생일</th>
+          <td>{birth}</td>
+        </tr>
+        <tr>
+          <th>인사말</th>
+          <td>{info}</td>
+        </tr>
+      </table>
     </Container>
   );
 };

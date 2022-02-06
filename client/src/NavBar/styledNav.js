@@ -10,11 +10,11 @@ export const NavWrap = styled.div`
   height: 50px;
   background-color: ${Background};
   font-family: "Jalnan";
-`;
 
-export const Logo = styled.div`
-  color: white;
-  text-align: center;
+  a {
+    color: white;
+    text-decoration: none;
+  }
 `;
 
 export const DropDown = styled.div``;
@@ -25,7 +25,6 @@ export const DropDownButton = styled.button`
   position: relative;
   height: 100%;
   color: white;
-  text-decoration: none;
   font-size: inherit;
   font-family: "Jalnan";
 
@@ -64,6 +63,7 @@ export const Links = styled.div`
   justify-content: space-around;
   height: 100%;
   width: 40%;
+  flex-basis: 350px;
   padding: 10px, 5px;
 
   a {
