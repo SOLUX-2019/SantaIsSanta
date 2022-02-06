@@ -1,9 +1,7 @@
 const express = require('express')
-const path = require('path')
 const app = express()
 const cors = require("cors")
 const port = process.env.PORT || 5000;
-const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const config = require('./config/key')
 
@@ -25,17 +23,10 @@ app.use(express.json())
 app.use(cookieParser());
 app.use(cors(corsOptions))
 
-
+// 서버 연결 확인
 app.listen(port, () => console.log(`Listening on port ${port}`))
 
-// var db;
-// const MongoClient = require('mongodb').MongoClient;
-// MongoClient.connect(config.mongoURI, function (err, client) {
-//     if (err) return console.log(err);
-
-//     db = client.db("SantaIsSanta");
-// })
-
+// 데이터베이스 연결 확인
 const mongoose = require('mongoose')
 mongoose.connect(config.mongoURI,{
     useNewUrlParser: true,
@@ -43,11 +34,12 @@ mongoose.connect(config.mongoURI,{
 }).then(() => console.log('MongoDB Connected...'))
 .catch(err => console.log(err))
 
-
+//--------user 관련--------
+// 회원가입
 app.post('/api/user/register', (req, res) => {
     // 회원가입 할 때 필요한 정보들을 클라이언트에서 가저오면,
     // 그것들을 디비에 넣음
-
+    
     const user = new User(req.body)
     
     user.save((err, userInfo) => {
@@ -58,54 +50,10 @@ app.post('/api/user/register', (req, res) => {
             success: true
         })
     })
-
+    
 })
 
-app.post('/community/post/upload', (req,res)=>{
-    //커뮤니티 글 저장
-    const post = Post(req.body)
-    var cnt =0;
-    post.save((err, content) => {
-        if(err){
-            console.log(err)
-            return res.json({success:false, err})
-        }        
-        return res.status(200).json({     
-            success:true
-        })
-    })
-
-
-})
-app.post('/api/user/login', (req, res)=>{
-    console.log(req.body)
-    User.findOne({id:req.body.id}, (err, user) =>{
-        //아이디가 데이터베이스에 있는지 확인
-        if(!user){
-            console.log('디비에 유저 없음')
-            return req.json({
-                loginSuccess: false,
-                message:"제공된 아이디에 해당하는 유저가 없습니다."
-            })
-        }
-        user.comparePassword(req.body.password, (err, isMatch) => {
-            if(!isMatch)
-            return req.json({loginSuccess:false, message:"비밀번호가 틀렸습니다."})
-
-
-            user.generateToken((err,user) => {
-                if(err) return res.status(400).send(err);
-                //토큰 저장
-                res.cookie("x_auth", user.token)
-                .status(200)
-                .json({ loginSuccess:true, userId:user._id})
-            })
-        })   
-    })
-})
-
-
-
+// 로그인한 사용자 정보 전달
 app.get('/auth', auth, (req, res) => {
     //여기 까지 미들웨어를 통과해 왔다는 얘기는  Authentication 이 True 라는 말.
     res.status(200).json({
@@ -117,15 +65,55 @@ app.get('/auth', auth, (req, res) => {
         birth:req.user.birth,
         gender:req.user.gender,
         image: req.user.image
-
+        
     })
 })
 
-app.post('/api/user/modify', auth, (req, res) => {
-    console.log(1)
-    console.log(req.user)
-    console.log(2)
+// 로그인
+app.post('/api/user/login', (req, res)=>{
     console.log(req.body)
+    User.findOne({id:req.body.id}, (err, user) =>{
+        //아이디가 데이터베이스에 있는지 확인
+        if(!user){
+            console.log('디비에 유저 없음')
+            return res.json({
+                loginSuccess: false,
+                message:"제공된 아이디에 해당하는 유저가 없습니다."
+            })
+        }
+        user.comparePassword(req.body.password, (err, isMatch) => {
+            if(!isMatch)
+            return res.json({loginSuccess:false, message:"비밀번호가 틀렸습니다."})
+            
+            
+            user.generateToken((err,user) => {
+                if(err) return res.status(400).send(err);
+                //토큰 저장
+                res.cookie("x_auth", user.token)
+                .status(200)
+                .json({ loginSuccess:true, userId:user._id})
+            })
+        })   
+    })
+})
+
+// 회원 정보 불러오기
+app.get('/api/user/info', auth, (req, res) => {
+    console.log(5)
+    console.log(req.user)
+    User.findOne({ _id: req.user._id }
+        , (err, user) => {
+        if (err) return res.json({ success: false, err });
+        return res.status(200).send(req.user)
+    })
+})
+
+// 회원 정보 수정
+app.post('/api/user/modify', auth, (req, res) => {
+    // console.log(1)
+    // console.log(req.user)
+    // console.log(2)
+    // console.log(req.body)
     User.findOneAndUpdate({ _id: req.user._id },
         {$set:{ 
             id: req.body.id,
@@ -142,8 +130,23 @@ app.post('/api/user/modify', auth, (req, res) => {
     })
 })
 
+// 로그인한 유저가 작성한 게시글 불러오기
+app.get('/api/user/post', auth, (req, res) => {
+    Post.find({wname: req.user.id}, (err, user_post) =>{
+        if(!user_post){
+            console.log('해당 유저의 게시글이 없습니다.')
+            return res.json({
+                Success: false,
+                message:"해당 유저의 게시글이 없습니다."
+            })
+        }
+        if (err) return res.json({ success: false, err });
+        return res.status(200).send(user_post)
+    })
+})
 
-app.get('/logout', auth, (req, res) => {
+// 로그아웃
+app.get('/api/user/logout', auth, (req, res) => {
     console.log(3)
     User.findOneAndUpdate({ _id: req.user._id },
         { token: "" }
@@ -155,13 +158,49 @@ app.get('/logout', auth, (req, res) => {
     })
 })
 
+//---------커뮤니티----------
+//커뮤니티 글 저장
+app.post('/community/post/upload', (req,res)=>{
+    const post = Post(req.body)
+    var cnt =0;
+    post.save((err, content) => {
+        if(err){
+            console.log(err)
+            return res.json({success:false, err})
+        }        
+        return res.status(200).json({     
+            success:true
+        })
+    })
+})
 
-app.get('/api/user/info', auth, (req, res) => {
-    console.log(5)
-    console.log(req.user)
-    User.findOne({ _id: req.user._id }
+// 전체 게시글 불러오기
+app.get('/community/post/info', (req, res) => {
+    Post.find({}, (err, post_all) =>{
+        if(!post_all){
+            console.log('게시글이 없습니다.')
+            return res.json({
+                Success: false,
+                message:"게시글이 없습니다."
+            })
+        }
+        if (err) return res.json({ success: false, err });
+        console.log(post_all)
+        return res.status(200).send(post_all)
+    })
+})
+
+// 게시글 수정
+app.post('/community/post/modify', auth, (req, res) => {
+    Post.findOneAndUpdate({ w_id: req.user._id, pid: 2},
+        {$set:{ 
+            title: req.body.title,
+            content: req.body.content
+        }}
         , (err, user) => {
         if (err) return res.json({ success: false, err });
-        return res.status(200).send(req.user)
+        return res.status(200).send({
+            success: true
+        })
     })
 })
