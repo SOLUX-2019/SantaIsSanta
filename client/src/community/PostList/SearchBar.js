@@ -8,7 +8,7 @@ const SearchWrap = styled.div`
   margin-right: 8%;
 
   form {
-    padding: 30px;
+    padding: 10px 30px;
     width: 520px;
     height: auto;
     overflow: hidden;

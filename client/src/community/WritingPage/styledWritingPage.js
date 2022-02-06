@@ -2,8 +2,8 @@ import styled from "styled-components";
 import "../../../src/assets/font/font.css";
 
 export const PageTitle = styled.div`
-  width: 100%;
-  padding: 50px 100px;
+  width: 80%;
+  margin: 50px 100px;
   font-family: "Pretendard";
 `;
 
@@ -61,7 +61,7 @@ export const FormWrap = styled.div`
     width: 100px;
     font-size: 1em;
     padding: 17px 0;
-    margin-top: 40px;
+    margin: 40px 0;
     border: 1px solid #1e4620;
     border-radius: 4px;
     cursor: pointer;
