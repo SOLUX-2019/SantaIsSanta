@@ -15,17 +15,46 @@ const ModifyProfile = () => {
     const [birth, setBirth] = useState(null);
     const [gender, setGender] = useState(null);
 
-    //렌더링 시 회원정보 불러오기, state값으로 설정
+    const genderToString = (val) => {
+        if(val == null)
+            return 'unchecked';
+        else if(val)
+            return 'F';
+        else
+            return 'M';
+    }
+
+    const genderToBool = (val) => {
+        if(val == 'unchecked')
+            return null;
+        else if(val == 'M')
+            return false;
+        else
+            return true;
+    }
+
+    //렌더링 시 회원정보 불러오기
     useEffect(() => {
         Axios.get('/api/user/info')
         .then((res) => {
-           console.log(res);             
+           console.log(res.data);
+           //실패 시 메세지 출력
+           if(res.data.error) {
+                alert('로그인을 먼저 해주세요.');
+                window.location.href = '/login';
+           }
+           //성공 시 state값으로 설정
+           else {
+                setId(res.data.id);
+                setName(res.data.name);
+                setUserInfo(res.data.user_info);
+                setBirth((res.data.birth).substr(0,10)); //'YYYY-MM-DD' 형식으로 바꿔주기
+                setGender(res.data.gender); //성별 select box defaultValue로 반영 안 됨
+           }
         })
     }, []);
 
-    //각 state값 백에 넘기기
     const submit = () => {
-        // console.log({id, name, userInfo, birth, gender});
         Axios.post('/api/user/modify', {
             id: id,
             user_info: userInfo,
@@ -67,10 +96,10 @@ const ModifyProfile = () => {
                         </Row>
                         <Row>
                             <Title>성별</Title>
-                            <Select name="gender" title="선택입력" defaultValue={`${gender}`} onChange={(e)=> setGender(JSON.parse(e.target.value))}>
-                                <option value="null">성별</option>
-                                <option value="0">남자</option>
-                                <option value="1">여자</option>
+                            <Select name="gender" title="선택입력" defaultValue={genderToString(gender)} onChange={(e)=> setGender(genderToBool(e.target.value))}>
+                                <option value="unchecked">성별</option>
+                                <option value="M">남자</option>
+                                <option value="F">여자</option>
                             </Select>
                         </Row>
                     </RowGroup>
