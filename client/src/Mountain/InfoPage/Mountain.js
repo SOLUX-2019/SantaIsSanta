@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation } from "react-router-dom";
-import styled from "styled-components";
+import { MountainWrapper, Container, Content } from './styledInfoPage';
 import MountainLoc from './MountainLoc';
 import MountainHeader from './MountainHeader';
 import MountainInfo from './MountainInfo';
@@ -12,24 +12,8 @@ const Mountain = () => {
     const region = new URLSearchParams(search).get('region');
     const mid = new URLSearchParams(search).get('mid');
 
-    const Mountain = styled.div`
-        height: 100%;
-    `;
-    
-    const Container = styled.div`
-        width: 100%;
-        height: 100%;
-    `;
-
-    const Content = styled.div`
-        width: 60%;
-        margin: 0px auto;
-        display: flex;
-        flex-direction: column;
-    `;
-
     return (
-        <Mountain>
+        <MountainWrapper>
             <Container>
                 <Content>
                     <MountainLoc region={region} mid={mid} />
@@ -39,7 +23,7 @@ const Mountain = () => {
                     <MountainReview mid={mid} />
                 </Content>
             </Container>
-        </Mountain>
+        </MountainWrapper>
     );
 }
 

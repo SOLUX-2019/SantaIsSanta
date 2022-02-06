@@ -1,68 +1,9 @@
 import React from 'react';
-import styled from "styled-components";
+import {Info, InfoImg, InfoText, InfoList } from './styledInfoPage';
 import mountainImg from '../../assets/img/jirisan.png';
 import "../../assets/font/font.css";
 
 const MountainInfo = ({mid}) => {
-    
-    const Info = styled.div`
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-    `;
-
-    const InfoImg = styled.div`
-        width: 100%;
-        padding: 60px 0px 20px 0px;
-        text-align: center;
-
-        img {
-            width: 700px;
-            height: 500px;
-        }
-    `;
-
-    const InfoText = styled.div`
-        width: 100%;
-        font-weight: 200;
-        font-family: "Pretendard";
-        color: #666;
-    `;
-
-    const InfoList = styled.div`
-        padding: 60px 0px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        border-bottom: 1px solid #ddd;
-
-        dl{
-            width: 100%;
-            display: flex;
-            flex-direction: baseline;
-            margin: 0;
-            padding: 10px 0px;
-        }
-
-        dt{
-            display: inline-block;
-            width: 20%;
-            margin: 0;
-            font-weight: 600;
-            font-size: 18px;
-            font-family: "Pretendard";
-        }
-
-        dd {
-            display: inline-block;
-            width: 80%;
-            margin: 0;
-            font-weight: 200;
-            font-size: 18px;
-            font-family: "Pretendard";
-            color: #666;
-        }
-    `;
 
     return (
         <Info>

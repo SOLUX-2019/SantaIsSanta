@@ -154,3 +154,14 @@ app.get('/logout', auth, (req, res) => {
         })
     })
 })
+
+
+app.get('/api/user/info', auth, (req, res) => {
+    console.log(5)
+    console.log(req.user)
+    User.findOne({ _id: req.user._id }
+        , (err, user) => {
+        if (err) return res.json({ success: false, err });
+        return res.status(200).send(req.user)
+    })
+})
