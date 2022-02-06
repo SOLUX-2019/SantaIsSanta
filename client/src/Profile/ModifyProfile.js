@@ -1,4 +1,4 @@
-import { Axios } from 'axios';
+import Axios from 'axios';
 import React, { useState, useEffect }from 'react';
 import { Wrapper, Container, Header, Form, RowGroup, Row, Title, Input, Select, Button } from '../Join/styledJoin';
 
@@ -15,10 +15,13 @@ const ModifyProfile = () => {
     const [birth, setBirth] = useState(null);
     const [gender, setGender] = useState(null);
 
-    //useEffect(()=> {
-        //렌더링 시 '/auth'로 회원정보 불러오기
-        //불러온 회원정보 각 state값으로 설정
-    //})
+    //렌더링 시 회원정보 불러오기, state값으로 설정
+    useEffect(() => {
+        Axios.get('/api/user/info')
+        .then((res) => {
+           console.log(res);             
+        })
+    }, []);
 
     //각 state값 백에 넘기기
     const submit = () => {

@@ -23,9 +23,7 @@ const Login = () => {
                alert(res.data.message);
            }
        })
-
-        // alert(`Welcome ${id}`);
-        // window.location.href='/';
+       .catch((err) => console.log(err));
     };
 
     return (
