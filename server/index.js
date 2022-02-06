@@ -159,15 +159,15 @@ app.get('/api/user/logout', auth, (req, res) => {
 })
 
 //---------커뮤니티----------
-//커뮤니티 글 저장
-app.post('/community/post/upload', (req,res)=>{
+//커뮤니티 게시글 저장
+app.post('/community/post/upload', auth,(req,res)=>{
     const post = Post(req.body)
-    var cnt =0;
+    post.wname=req.user.id;
     post.save((err, content) => {
         if(err){
             console.log(err)
             return res.json({success:false, err})
-        }        
+        } 
         return res.status(200).json({     
             success:true
         })
@@ -202,5 +202,18 @@ app.post('/community/post/modify', auth, (req, res) => {
         return res.status(200).send({
             success: true
         })
+    })
+})
+
+//게시글 삭제
+app.delete('/community/post/delete/:id',(req,res)=>{
+    Post.findByIdAndRemove(req.params.id, function (err, del){
+        if(err){
+            return res.json({success:false, err})
+        }        
+        return res.status(200).json({     
+            success:true,
+            message:"deleted"
+        }) 
     })
 })
