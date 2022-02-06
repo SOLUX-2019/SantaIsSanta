@@ -46,6 +46,7 @@ export const TableWrap = styled.div`
     font-size: 1em;
     padding: 10px 0;
     margin-right: 30px;
+    margin-bottom: 50px;
     border-radius: 4px;
     cursor: pointer;
     text-align: center;

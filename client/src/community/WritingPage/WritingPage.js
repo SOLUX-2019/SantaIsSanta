@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { PageTitle, FormWrap } from "./styledWritingPage";
+import LinkButton from "../LinkButton";
+import { PageTitle, FormWrap, LinkWrap } from "./styledWritingPage";
 import Writer from "./Writer";
 
 const WritingPage = () => {
@@ -18,7 +19,9 @@ const WritingPage = () => {
 
   return (
     <>
-      <PageTitle>커뮤니티 › 게시글 작성</PageTitle>
+      <LinkWrap>
+        <LinkButton path={"/community"} destName="목록으로" />
+      </LinkWrap>
       <FormWrap>
         <table>
           <tr>

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import "../../../src/assets/font/font.css";
 
-export const PageTitle = styled.div`
+export const LinkWrap = styled.div`
   width: 80%;
   margin: 50px 100px;
   font-family: "Pretendard";

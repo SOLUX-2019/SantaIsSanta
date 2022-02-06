@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import "../../src/assets/font/font.css";
 import { Comment, InputComment } from "./Comment.js";
+import LinkButton from "./LinkButton";
+import { LinkWrap } from "./WritingPage/styledWritingPage";
 
 const TableWrap = styled.div`
   display: flex;
@@ -11,7 +13,6 @@ const TableWrap = styled.div`
 
   table {
     width: 80%;
-    margin-top: 80px;
     border: 1px solid #ddd;
   }
   th {
@@ -58,6 +59,9 @@ const PostViewPage = () => {
 
   return (
     <>
+      <LinkWrap>
+        <LinkButton path={"/community"} destName="목록으로" />
+      </LinkWrap>
       <TableWrap>
         <table>
           <tr>
