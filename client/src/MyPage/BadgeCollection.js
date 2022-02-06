@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FaQuestion } from "react-icons/fa";
 
@@ -28,8 +27,7 @@ const Container = styled.div`
   }
 `;
 
-const BadgeCollection = () => {
-  const [postCount, setPostCount] = useState(0);
+const BadgeCollection = ({ postCount }) => {
   const urls = [
     "https://cdn-icons.flaticon.com/png/128/2283/premium/2283433.png?token=exp=1644085636~hmac=d02d4e9aa7082a8eb7ef52064e14476a",
     "https://cdn-icons.flaticon.com/png/128/2283/premium/2283408.png?token=exp=1644085636~hmac=5570ba78630ada4cb28a1d8602eec0cb",
@@ -38,9 +36,6 @@ const BadgeCollection = () => {
     "https://cdn-icons.flaticon.com/png/128/2283/premium/2283436.png?token=exp=1644085636~hmac=0cb027ee5b6d9d47cee632d66fa031ca",
     "https://cdn-icons.flaticon.com/png/128/2283/premium/2283447.png?token=exp=1644085636~hmac=af9975143e2ae28d2821ee6f9ed4a5db",
   ];
-  useEffect(() => {
-    setPostCount(26);
-  }, []);
 
   return (
     <div>
@@ -48,8 +43,14 @@ const BadgeCollection = () => {
       <Container>
         {urls.map((item, index) => {
           if (postCount < (index + 1) * 5)
-            return <EmptyCell limit={(index + 1) * 5} postCount={postCount} />;
-          return <Badge src={item} limit={(index + 1) * 5} />;
+            return (
+              <EmptyCell
+                limit={(index + 1) * 5}
+                postCount={postCount}
+                key={index}
+              />
+            );
+          return <Badge src={item} limit={(index + 1) * 5} key={index} />;
         })}
       </Container>
     </div>
