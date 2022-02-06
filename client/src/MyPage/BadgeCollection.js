@@ -56,6 +56,7 @@ const BadgeCollection = ({ postCount }) => {
     </div>
   );
 };
+
 const Badge = ({ limit, src }) => {
   return (
     <div title={`${limit}개의 게시글을 작성해서 얻었어요!`}>
