@@ -1,59 +1,10 @@
 /* global kakao */ 
 import React, { useEffect } from 'react';
-import styled from "styled-components";
+import { Wrapper, MapContainer, Adress } from './styledInfoPage';
 import "../../assets/font/font.css";
 
 const MountainMap = ({mid}) => {
   // const { kakao } = window;
-  const Wrapper = styled.div`
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    padding: 60px 0px;
-    border-bottom: 1px solid #ddd;
-  `;
-
-  const MapContainer = styled.div`
-    width: 100%;
-    display: flex;
-    justify-content: center;
-
-    #myMap {
-      width: 100%;
-      height: 300px;
-    }
-  `;
-
-  const Adress = styled.div`
-    width: 100%;
-    padding-top: 35px;
-
-    dl{
-        width: 100%;
-        display: flex;
-        flex-direction: baseline;
-        margin: 0;
-    }
-
-    dt{
-        display: inline-block;
-        width: 20%;
-        margin: 0;
-        font-weight: 600;
-        font-size: 18px;
-        font-family: "Pretendard";
-      }
-
-    dd {
-        display: inline-block;
-        width: 80%;
-        margin: 0;
-        font-weight: 200;
-        font-size: 18px;
-        font-family: "Pretendard";
-        color: #666;
-    }
-  `;
 
   useEffect(() => {
     const container = document.getElementById('myMap');
