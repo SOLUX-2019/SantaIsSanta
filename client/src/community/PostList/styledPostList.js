@@ -54,3 +54,26 @@ export const TableWrap = styled.div`
     justify-content: center;
   }
 `;
+
+export const PaginationWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  align-items: center;
+  margin: 20px 0;
+
+  div {
+    display: inline-block;
+    padding: 8px 16px;
+    width: 30px;
+    font-size: 18px;
+  }
+  .page-btn {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+  }
+  .page-btn :hover {
+    color: #dd5528;
+  }
+`;

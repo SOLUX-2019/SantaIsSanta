@@ -6,7 +6,7 @@ import Login from "./Login/Login";
 import Join from "./Join/Join";
 import ModifyProfile from "./Profile/ModifyProfile";
 import MyPage from "./MyPage/MyPage";
-import PostList from "./community/PostList/PostList";
+import PostListPage from "./community/PostList/PostListPage";
 import WritingPage from "./community/WritingPage/WritingPage";
 import PostViewPage from "./community/PostView";
 import Mountain from "./Mountain/InfoPage/Mountain";
@@ -22,7 +22,7 @@ function App() {
         <Route path="/join" element={<Join />} />
         <Route path="/modifyProfile" element={<ModifyProfile />} />
         <Route path="/myPage" element={<MyPage />} />
-        <Route path="/community" element={<PostList />} />
+        <Route path="/community" element={<PostListPage />} />
         <Route path="/community/write" element={<WritingPage />} />
         <Route path="/community/post/:id" element={<PostViewPage />} />
         <Route path="/mountain/region" element={<RegionPage />} />
