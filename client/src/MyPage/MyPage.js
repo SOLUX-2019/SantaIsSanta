@@ -1,72 +1,35 @@
-import { useState } from "react";
-import styled from "styled-components";
+import { useState, useEffect } from "react";
+import Axios from "axios";
 import { Link } from "react-router-dom";
+import { FaPencilAlt } from "react-icons/fa";
 import "../../src/assets/font/font.css";
+import { Wrap, LeftContainer, RightContainer } from "./styledMyPage";
 import defaultImg from "../assets/img/logo_titleX.png";
 import PostList from "./PostList";
 import Profile from "./Profile";
 import BadgeCollection from "./BadgeCollection";
-import { FaPencilAlt } from "react-icons/fa";
-const Wrap = styled.div`
-  font-family: "Pretendard";
-  height: 100vh;
-  padding-top: 50px;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-
-  background-color: #f5f6f8;
-  a {
-    display: flex;
-    color: black;
-    text-decoration: none;
-  }
-  a: hover {
-    font-weight: bold;
-  }
-
-  h2 {
-    font-family: "Jalnan";
-  }
-`;
-const LeftContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 40%;
-  min-width: 400px;
-  align-items: center;
-
-  img {
-    height: 360x;
-    width: 360px;
-    box-shadow: 5px 5px 5px grey;
-    border-radius: 50%;
-  }
-  a.goEdit {
-    width: 80%;
-    justify-content: flex-end;
-    align-items: center;
-    margin: 15px 0px;
-    border-bottom: 1px solid #ddd;
-  }
-  svg {
-    margin-left: 3px;
-  }
-`;
-const RightContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 40%;
-`;
 
 const MyPage = () => {
-  const [user, setUser] = useState({
-    name: "김산타",
-    gender: 0,
-    birth: "2000.12.25",
-    info: "2년차 나무꾼입니다^^.",
-  });
+  const [user, setUser] = useState({});
+  const [postList, setPostList] = useState([]);
+
+  useEffect(() => {
+    Axios.get("/api/user/info")
+      .then((res) => {
+        //console.log(res.data);
+        setUser(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    Axios.get("/api/user/post")
+      .then((res) => {
+        setPostList(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <>
@@ -80,8 +43,8 @@ const MyPage = () => {
           <Profile user={user} />
         </LeftContainer>
         <RightContainer>
-          <BadgeCollection />
-          <PostList />
+          <BadgeCollection postCount={postList.length} />
+          <PostList postList={postList} />
         </RightContainer>
       </Wrap>
     </>
