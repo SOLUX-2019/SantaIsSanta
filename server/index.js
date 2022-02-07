@@ -270,7 +270,7 @@ app.post("/community/comment/add/:id", auth, (req, res) => {
 
 // 댓글 조회
 app.get("/community/comment/info", (req, res) => {
-  Comment.find({ pid: req.body.pid }, (err, comment_all) => {
+  Comment.find({ pid: req.query["pid"] }, (err, comment_all) => {
     if (!comment_all) {
       console.log("댓글이 없습니다.");
       return res.json({
