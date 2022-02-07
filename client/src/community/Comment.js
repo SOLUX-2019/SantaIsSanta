@@ -3,18 +3,32 @@ import Axios from "axios";
 import defaultImg from "../assets/img/logo_titleX.png";
 import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
 import { CommentWrap, InputWrap } from "./styledComment";
+import { useNavigate } from "react-router-dom";
 
-export const Comment = ({ name, content, pid, cid }) => {
+export const Comment = ({
+  name,
+  content,
+  pid,
+  _id,
+  setComments,
+  comments,
+  key,
+  togglereloader,
+  reloader,
+}) => {
   const [isAuthor, setIsAuthor] = useState(true);
   const [editMode, setEditmode] = useState(false);
-
+  const navigate = useNavigate();
   const toggleEditMode = () => {
     setEditmode(!editMode);
   };
 
-  const delelteComment = () => {
-    Axios.delete("/community/comment/delete/:id")
-      .then((res) => {})
+  const deleteComment = () => {
+    if (!window.confirm("댓글을 삭제하시겠습니까?")) return;
+    Axios.delete(`/community/comment/delete/${_id}`)
+      .then((res) => {
+        window.location.replace(`/community/post/${pid}`);
+      })
       .then((err) => {});
   };
   const editComment = () => {
@@ -32,7 +46,7 @@ export const Comment = ({ name, content, pid, cid }) => {
           {isAuthor ? (
             <div className="comment-btns">
               <FaPencilAlt onClick={toggleEditMode} />
-              <FaTrashAlt />
+              <FaTrashAlt onClick={deleteComment} />
             </div>
           ) : (
             ""
