@@ -277,7 +277,7 @@ app.get('/community/comment/info', (req, res) => {
 
 // 댓글 수정
 app.post('/community/comment/modify', auth, (req, res) => {
-    Comment.findOneAndUpdate({ wname: req.user._id, pid: req.body.pid, cid:req.body.cid},
+    Comment.findOneAndUpdate({ wname: req.user.id, pid: req.body.pid, cid:req.body.cid},
         {$set:{ 
             content: req.body.content
         }}
