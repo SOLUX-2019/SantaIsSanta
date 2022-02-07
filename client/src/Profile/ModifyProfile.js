@@ -15,17 +15,35 @@ const ModifyProfile = () => {
     const [birth, setBirth] = useState(null);
     const [gender, setGender] = useState(null);
 
-    //렌더링 시 회원정보 불러오기, state값으로 설정
+    const birthParser = (birth) => {
+        if(birth == null)
+            return null;
+        else
+            //'YYYY-MM-DD' 형식으로 변경
+            return birth.substr(0,10);
+    }
+
+    //렌더링 시 회원정보 불러오기
     useEffect(() => {
         Axios.get('/api/user/info')
         .then((res) => {
-           console.log(res);             
+           //실패
+           if(res.data.error) {
+                alert('로그인을 먼저 해주세요.');
+                window.location.href = '/login';
+           }
+           //성공
+           else {
+                setId(res.data.id);
+                setName(res.data.name);
+                setUserInfo(res.data.user_info);
+                setBirth(birthParser(res.data.birth));
+                setGender(res.data.gender);
+           }
         })
     }, []);
 
-    //각 state값 백에 넘기기
     const submit = () => {
-        // console.log({id, name, userInfo, birth, gender});
         Axios.post('/api/user/modify', {
             id: id,
             user_info: userInfo,
@@ -34,9 +52,10 @@ const ModifyProfile = () => {
             gender: gender
         })
         .then((res) => {
-            console.log(res.data);
+            //성공
             if(res.data.success)
                 alert('회원정보가 수정되었습니다.');
+            //실패    
             else
                 console.log(res.data.err);
         })
@@ -47,7 +66,6 @@ const ModifyProfile = () => {
            <Container>
                <Header>회원정보 수정</Header>
                <Form>
-                   {/* DB에 저장된 내용 불러와서 input 태그 defaultValue로 지정 */}
                     <RowGroup>
                         <Row>
                             <Title>이름</Title>
@@ -67,15 +85,14 @@ const ModifyProfile = () => {
                         </Row>
                         <Row>
                             <Title>성별</Title>
-                            <Select name="gender" title="선택입력" defaultValue={`${gender}`} onChange={(e)=> setGender(JSON.parse(e.target.value))}>
-                                <option value="null">성별</option>
-                                <option value="0">남자</option>
-                                <option value="1">여자</option>
+                            <Select name="gender" title="선택입력" key={`${gender}`} defaultValue={`${gender}`} onChange={(e)=> setGender(JSON.parse(e.target.value))}>
+                                <option value="null">선택 안 함</option>
+                                <option value="false">남자</option>
+                                <option value="true">여자</option>
                             </Select>
                         </Row>
                     </RowGroup>
 
-                    {/* 버튼 */}
                     <Button type="button" onClick={submit}>수정 완료</Button>
                </Form>
            </Container>

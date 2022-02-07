@@ -14,9 +14,8 @@ const Login = () => {
            password: password
        })
        .then((res) => {
-           console.log(res.data);
            if(res.data.loginSuccess) {
-               alert('Welcome');
+               alert('산타는산타에 오신 것을 환영합니다!');
                window.location.href = '/';
            }
            else {
