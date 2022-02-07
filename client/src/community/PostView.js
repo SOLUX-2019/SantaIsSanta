@@ -65,12 +65,14 @@ const PostViewPage = () => {
         {isAuthor ? <AuthBtns _objectId={post._id} pid={post.pid} /> : ""}
       </TableWrap>
       <CommentWrap>
-        {comments.map((item, index) => (
+        {comments.map((item) => (
           <Comment
             name={item.wname}
             content={item.content}
-            pid={post.pid}
-            key={index}
+            pid={item.pid}
+            cid={item.cid}
+            _id={item._id}
+            key={item.id}
           />
         ))}
         <InputComment pid={pid} />
@@ -96,8 +98,8 @@ const AuthBtns = ({ _objectId, pid }) => {
       .catch((err) => {});
   };
 
-  const clickEditBtn = (pid) => {
-    navigate(`community/post/${pid}`);
+  const clickEditBtn = () => {
+    navigate(`/community/write/${pid}`);
   };
 
   return (

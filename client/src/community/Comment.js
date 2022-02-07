@@ -3,23 +3,33 @@ import Axios from "axios";
 import defaultImg from "../assets/img/logo_titleX.png";
 import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
 import { CommentWrap, InputWrap } from "./styledComment";
+import { useNavigate } from "react-router-dom";
 
-export const Comment = ({ name, content, pid, cid }) => {
+export const Comment = ({ name, content, pid, _id, cid }) => {
   const [isAuthor, setIsAuthor] = useState(true);
   const [editMode, setEditmode] = useState(false);
-
+  const navigate = useNavigate();
   const toggleEditMode = () => {
     setEditmode(!editMode);
   };
 
-  const delelteComment = () => {
-    Axios.delete("/community/comment/delete/:id")
-      .then((res) => {})
+  const deleteComment = () => {
+    if (!window.confirm("댓글을 삭제하시겠습니까?")) return;
+    Axios.delete(`/community/comment/delete/${_id}`)
+      .then((res) => {
+        window.location.replace(`/community/post/${pid}`);
+      })
       .then((err) => {});
   };
   const editComment = () => {
-    Axios.post("/community/comment/modify")
-      .then((res) => {})
+    Axios.post("/community/comment/modify", {
+      pid: pid,
+      content: content,
+      cid: cid,
+    })
+      .then((res) => {
+        if (!res.data.success) alert("댓글 수정 실패");
+      })
       .then((err) => {});
   };
 
@@ -32,21 +42,25 @@ export const Comment = ({ name, content, pid, cid }) => {
           {isAuthor ? (
             <div className="comment-btns">
               <FaPencilAlt onClick={toggleEditMode} />
-              <FaTrashAlt />
+              <FaTrashAlt onClick={deleteComment} />
             </div>
           ) : (
             ""
           )}
         </div>
         <div>
-          {editMode ? <InputComment pid={pid} content={content} /> : content}
+          {editMode ? (
+            <InputComment pid={pid} content={content} cid={cid} />
+          ) : (
+            content
+          )}
         </div>
       </div>
     </CommentWrap>
   );
 };
 
-export const InputComment = ({ pid, content }) => {
+export const InputComment = ({ pid, cid, content }) => {
   console.log(pid);
   const [comment, setComment] = useState(content);
 
@@ -55,8 +69,9 @@ export const InputComment = ({ pid, content }) => {
   };
 
   const saveComment = () => {
-    Axios.post(`/community/comment/add`, {
+    Axios.post(`/community/comment/modify`, {
       pid: pid,
+      cid: cid,
       content: comment,
     })
       .then((res) => {
