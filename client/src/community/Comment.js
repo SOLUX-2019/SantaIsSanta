@@ -55,7 +55,7 @@ export const InputComment = ({ pid, content }) => {
   };
 
   const saveComment = () => {
-    Axios.post(`/community/comment/add/${pid}`, {
+    Axios.post(`/community/comment/add`, {
       pid: pid,
       content: comment,
     })
