@@ -196,7 +196,7 @@ app.get('/community/post/info', (req, res) => {
 
 // pid에 맞는 게시글 하나 가져오기
 app.get('/community/post/one', (req, res) => {
-    Post.findOne({pid:req.body.pid}, (err, post_one) =>{
+    Post.findOne({pid:req.query['pid']}, (err, post_one) =>{
         if(!post_one){
             console.log('게시글이 없습니다.')
             return res.json({
@@ -261,7 +261,7 @@ app.post('/community/comment/add/:id',auth,(req,res)=>{
 
 // 댓글 조회
 app.get('/community/comment/info', (req, res) => {
-    Comment.find({pid: req.body.pid}, (err, comment_all) =>{
+    Comment.find({pid:req.query['pid']}, (err, comment_all) =>{
         if(!comment_all){
             console.log('댓글이 없습니다.')
             return res.json({
