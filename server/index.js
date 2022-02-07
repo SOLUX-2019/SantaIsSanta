@@ -257,3 +257,16 @@ app.post('/community/comment/add/:id',auth,(req,res)=>{
         })
     })
 })
+
+//댓글 삭제
+app.delete('/community/comment/delete/:id',(req,res)=>{
+    Comment.findByIdAndRemove(req.params.id, function (err, del){
+        if(err){
+            return res.json({success:false, err})
+        }        
+        return res.status(200).json({     
+            success:true,
+            message:"deleted"
+        }) 
+    })
+})
