@@ -194,6 +194,22 @@ app.get('/community/post/info', (req, res) => {
     })
 })
 
+// pid에 맞는 게시글 하나 가져오기
+app.get('/community/post/one', (req, res) => {
+    Post.findOne({pid:4}, (err, post_one) =>{
+        if(!post_one){
+            console.log('게시글이 없습니다.')
+            return res.json({
+                Success: false,
+                message:"게시글이 없습니다."
+            })
+        }
+        if (err) return res.json({ success: false, err });
+        console.log(post_one)
+        return res.status(200).send(post_one)
+    })
+})
+
 // 게시글 수정
 app.post('/community/post/modify', auth, (req, res) => {
     Post.findOneAndUpdate({ w_id: req.user._id, pid: 2},
