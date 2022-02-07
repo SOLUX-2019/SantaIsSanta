@@ -86,7 +86,7 @@ const ModifyProfile = () => {
                         <Row>
                             <Title>성별</Title>
                             <Select name="gender" title="선택입력" key={`${gender}`} defaultValue={`${gender}`} onChange={(e)=> setGender(JSON.parse(e.target.value))}>
-                                <option value="null">성별</option>
+                                <option value="null">선택 안 함</option>
                                 <option value="false">남자</option>
                                 <option value="true">여자</option>
                             </Select>
