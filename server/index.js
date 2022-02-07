@@ -196,7 +196,7 @@ app.get('/community/post/info', (req, res) => {
 
 // pid에 맞는 게시글 하나 가져오기
 app.get('/community/post/one', (req, res) => {
-    Post.findOne({pid:4}, (err, post_one) =>{
+    Post.findOne({pid:req.body.pid}, (err, post_one) =>{
         if(!post_one){
             console.log('게시글이 없습니다.')
             return res.json({
@@ -212,7 +212,7 @@ app.get('/community/post/one', (req, res) => {
 
 // 게시글 수정
 app.post('/community/post/modify', auth, (req, res) => {
-    Post.findOneAndUpdate({ w_id: req.user._id, pid: 2},
+    Post.findOneAndUpdate({ w_id: req.user._id, pid: req.body.pid},
         {$set:{ 
             title: req.body.title,
             content: req.body.content
@@ -238,6 +238,7 @@ app.delete('/community/post/delete/:id',(req,res)=>{
     })
 })
 
+//-----------댓글-----------
 //댓글 저장
 app.post('/community/comment/add/:id',auth,(req,res)=>{
     const newComment = new Comment (req.body)
@@ -254,6 +255,36 @@ app.post('/community/comment/add/:id',auth,(req,res)=>{
             return res.status(200).json({     
                 success:true
             })
+        })
+    })
+})
+
+// 댓글 조회
+app.get('/community/comment/info', (req, res) => {
+    Comment.find({pid: req.body.pid}, (err, comment_all) =>{
+        if(!comment_all){
+            console.log('댓글이 없습니다.')
+            return res.json({
+                Success: false,
+                message:"댓글이 없습니다."
+            })
+        }
+        if (err) return res.json({ success: false, err });
+        console.log(comment_all)
+        return res.status(200).send(comment_all)
+    })
+})
+
+// 댓글 수정
+app.post('/community/comment/modify', auth, (req, res) => {
+    Comment.findOneAndUpdate({ wname: req.user.id, pid: req.body.pid, cid:req.body.cid},
+        {$set:{ 
+            content: req.body.content
+        }}
+        , (err, user) => {
+        if (err) return res.json({ success: false, err });
+        return res.status(200).send({
+            success: true
         })
     })
 })
