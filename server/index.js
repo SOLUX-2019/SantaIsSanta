@@ -252,7 +252,7 @@ app.delete("/community/post/delete/:id", (req, res) => {
 app.post("/community/comment/add/:id", auth, (req, res) => {
   const newComment = new Comment(req.body);
   newComment.wname = req.user.id;
-  Post.findOne({ pid: 1 }, (err, post) => {
+  Post.findOne({ pid: req.query["pid"] }, (err, post) => {
     if (err) return res.json({ success: false, err });
     newComment.pid = post.pid;
     //  console.log(post);

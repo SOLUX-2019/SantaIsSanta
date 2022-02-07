@@ -1,13 +1,13 @@
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
-const Writer = ({ data }) => {
+const Writer = ({ handleChange, content }) => {
   return (
     <div>
       <CKEditor
         editor={ClassicEditor}
         onChange={(event, editor) => {
-          data(editor.getData());
+          handleChange(editor.getData());
         }}
         config={{
           toolbar: [
@@ -25,6 +25,7 @@ const Writer = ({ data }) => {
             "Redo",
           ],
           placeholder: "text here !",
+          value: content,
         }}
       />
     </div>

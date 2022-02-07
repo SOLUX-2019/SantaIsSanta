@@ -23,7 +23,9 @@ function App() {
         <Route path="/modifyProfile" element={<ModifyProfile />} />
         <Route path="/myPage" element={<MyPage />} />
         <Route path="/community" element={<PostListPage />} />
-        <Route path="/community/write" element={<WritingPage />} />
+        <Route path="/community/write" element={<WritingPage />}>
+          <Route path="/community/write/:pid" />
+        </Route>
         <Route path="/community/post/:pid" element={<PostViewPage />} />
         <Route path="/mountain/region" element={<RegionPage />} />
         <Route path="/mountain/info" element={<Mountain />} />

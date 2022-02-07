@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 import Axios from "axios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "../../src/assets/font/font.css";
 import { Comment, InputComment } from "./Comment.js";
 import LinkButton from "./LinkButton";
 import { LinkWrap } from "./WritingPage/styledWritingPage";
 import { TableWrap, CommentWrap, AuthBtnWrap } from "./styledPostView";
 
-const PostViewPage = ({ match }) => {
+const PostViewPage = () => {
   const [post, setPost] = useState({});
   const [comments, setComments] = useState([]);
-  const [isAuthor, setIsAuthor] = useState(false);
+  const [isAuthor, setIsAuthor] = useState(true);
   const params = useParams();
   let pid = params.pid;
 
@@ -28,20 +28,13 @@ const PostViewPage = ({ match }) => {
     Axios.get(`/community/comment/info?pid=${pid}`)
       .then((res, req) => {
         console.log(res.data);
-        console.log(req.user);
         setComments(res.data);
+        console.log(comments);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
-
-  /*let comments = [
-    {
-      wname: "최산타",
-      content: "댓글 내용 어쩌고 산 최고 ~",
-    }
-  ];*/
 
   return (
     <>
@@ -63,15 +56,22 @@ const PostViewPage = ({ match }) => {
           </thead>
           <tbody>
             <tr>
-              <td colSpan={4}>{post.content}</td>
+              <td colSpan={4}>
+                <div dangerouslySetInnerHTML={{ __html: post.content }}></div>
+              </td>
             </tr>
           </tbody>
         </table>
-        {isAuthor ? <AuthBtns /> : {}}
+        {isAuthor ? <AuthBtns _objectId={post._id} pid={post.pid} /> : ""}
       </TableWrap>
       <CommentWrap>
         {comments.map((item, index) => (
-          <Comment name={item.wname} content={item.content} key={index} />
+          <Comment
+            name={item.wname}
+            content={item.content}
+            pid={post.pid}
+            key={index}
+          />
         ))}
         <InputComment pid={pid} />
       </CommentWrap>
@@ -79,18 +79,47 @@ const PostViewPage = ({ match }) => {
   );
 };
 
-const AuthBtns = () => {
+const AuthBtns = ({ _objectId, pid }) => {
+  const navigate = useNavigate();
+
+  const deletePost = () => {
+    if (!window.confirm("정말 삭제할까요?")) return;
+    Axios.delete(`/community/post/delete/${_objectId}`)
+      .then((res) => {
+        if (!res.data.success) alert("삭제에 실패했습니다.");
+        else {
+          alert("삭제했습니다.");
+          navigate("/community");
+        }
+        console.log(res);
+      })
+      .catch((err) => {});
+  };
+
+  const clickEditBtn = (pid) => {
+    navigate(`community/post/${pid}`);
+  };
+
   return (
     <AuthBtnWrap>
-      <button className="delete-Btn">삭제하기</button>
-      <button className="edit-Btn">수정하기</button>
+      <button
+        className="delete-Btn"
+        onClick={() => {
+          deletePost();
+        }}
+      >
+        삭제하기
+      </button>
+      <button className="edit-Btn" onClick={() => clickEditBtn()}>
+        수정하기
+      </button>
     </AuthBtnWrap>
   );
 };
 
 const changeDateFormat = (date) => {
   if (typeof date == "string") return date.substring(0, 10);
-  return "sorry.";
+  return "";
 };
 
 export default PostViewPage;

@@ -8,7 +8,7 @@ import { WriteButton, TableHead, TableBody } from "./PostListComponents";
 const PostListPage = () => {
   const [postList, setPostList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  let pageCount = 1;
+  const [pageCount, setPageCount] = useState(1);
   let limit = 10;
 
   const slicePostList = () => {
@@ -29,9 +29,8 @@ const PostListPage = () => {
   useEffect(() => {
     Axios.get("/community/post/info")
       .then((res) => {
-        //console.log(res.data);
         setPostList(res.data.reverse());
-        pageCount = Math.round(postList.length / limit);
+        setPageCount(Math.ceil(res.data.length / limit));
       })
       .catch((err) => {});
   }, []);
