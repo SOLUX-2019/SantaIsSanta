@@ -30,7 +30,7 @@ const WritingPage = () => {
     })
       .then((res, req) => {
         console.log(res);
-        if (!res.data.success) alert("게시글 작성에 실패했습니다.");
+        if (!res.data.success) alert("게시글 수정에 실패했습니다.");
         else {
           alert("게시글 수정 성공!");
           navigate(`/community/post/${params.pid}`);
