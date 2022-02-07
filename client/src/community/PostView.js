@@ -70,6 +70,7 @@ const PostViewPage = () => {
             name={item.wname}
             content={item.content}
             pid={item.pid}
+            cid={item.cid}
             _id={item._id}
             key={item.id}
           />
@@ -97,8 +98,8 @@ const AuthBtns = ({ _objectId, pid }) => {
       .catch((err) => {});
   };
 
-  const clickEditBtn = (pid) => {
-    navigate(`community/post/${pid}`);
+  const clickEditBtn = () => {
+    navigate(`/community/write/${pid}`);
   };
 
   return (

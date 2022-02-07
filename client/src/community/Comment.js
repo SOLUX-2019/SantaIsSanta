@@ -5,17 +5,7 @@ import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
 import { CommentWrap, InputWrap } from "./styledComment";
 import { useNavigate } from "react-router-dom";
 
-export const Comment = ({
-  name,
-  content,
-  pid,
-  _id,
-  setComments,
-  comments,
-  key,
-  togglereloader,
-  reloader,
-}) => {
+export const Comment = ({ name, content, pid, _id, cid }) => {
   const [isAuthor, setIsAuthor] = useState(true);
   const [editMode, setEditmode] = useState(false);
   const navigate = useNavigate();
@@ -32,8 +22,14 @@ export const Comment = ({
       .then((err) => {});
   };
   const editComment = () => {
-    Axios.post("/community/comment/modify")
-      .then((res) => {})
+    Axios.post("/community/comment/modify", {
+      pid: pid,
+      content: content,
+      cid: cid,
+    })
+      .then((res) => {
+        if (!res.data.success) alert("댓글 수정 실패");
+      })
       .then((err) => {});
   };
 
@@ -53,14 +49,18 @@ export const Comment = ({
           )}
         </div>
         <div>
-          {editMode ? <InputComment pid={pid} content={content} /> : content}
+          {editMode ? (
+            <InputComment pid={pid} content={content} cid={cid} />
+          ) : (
+            content
+          )}
         </div>
       </div>
     </CommentWrap>
   );
 };
 
-export const InputComment = ({ pid, content }) => {
+export const InputComment = ({ pid, cid, content }) => {
   console.log(pid);
   const [comment, setComment] = useState(content);
 
@@ -69,8 +69,9 @@ export const InputComment = ({ pid, content }) => {
   };
 
   const saveComment = () => {
-    Axios.post(`/community/comment/add`, {
+    Axios.post(`/community/comment/modify`, {
       pid: pid,
+      cid: cid,
       content: comment,
     })
       .then((res) => {
