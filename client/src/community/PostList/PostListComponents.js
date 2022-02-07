@@ -13,15 +13,27 @@ export const TableHead = () => {
   );
 };
 
+export const TableBody = ({ postList }) => {
+  return (
+    <tbody>
+      {postList.map((p, i) => (
+        <TableRow post={p} key={i} />
+      ))}
+    </tbody>
+  );
+};
+
 export const TableRow = (props) => {
-  const { pid, title, wname, date } = props.post;
+  const { pid, title, wname, date, category } = props.post;
   return (
     <tr>
       <td>
         <Link to={`/community/post/${pid}`}>{pid}</Link>
       </td>
       <td>
-        <Link to={`/community/post/${pid}`}>{title}</Link>
+        <Link to={`/community/post/${pid}`}>
+          [{category}] {title}
+        </Link>
       </td>
       <td>
         <Link to={`/community/post/${pid}`}>{wname}</Link>

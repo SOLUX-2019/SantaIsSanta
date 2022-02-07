@@ -1,50 +1,27 @@
-import styled from "styled-components";
+import { useEffect, useState } from "react";
+import Axios from "axios";
+import { useParams } from "react-router-dom";
 import "../../src/assets/font/font.css";
 import { Comment, InputComment } from "./Comment.js";
 import LinkButton from "./LinkButton";
 import { LinkWrap } from "./WritingPage/styledWritingPage";
+import { TableWrap, CommentWrap, AuthBtnWrap } from "./styledPostView";
 
-const TableWrap = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  font-family: "Pretendard";
+const PostViewPage = ({ match }) => {
+  const [post, setPost] = useState({});
+  const params = useParams();
 
-  table {
-    width: 80%;
-    border: 1px solid #ddd;
-  }
-  th {
-    border-bottom: 1px solid #ddd;
-    width: 25%;
-    padding: 7px 17px;
-  }
-  th: nth-child(odd) {
-    background-color: #f5f6f8;
-  }
-  td {
-    padding: 20px 20px;
-    height: 500px;
-    width: 100%;
-    text-align: center;
-  }
-`;
-
-const CommentWrap = styled.div`
-  width: 100%;
-  justify-content: center;
-`;
-
-const PostViewPage = () => {
-  let post = {
-    pid: 1,
-    category: "나만 아는 산",
-    title: "첫번째 게시글입니다.",
-    wname: "김산타",
-    date: "2022-12-25",
-    content: "내용어쩌고 산 최고 ~",
-  };
+  useEffect(() => {
+    console.log(params);
+    let pid = params.pid;
+    Axios.get("/community/post/one")
+      .then((res) => {
+        setPost(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   let comments = [
     {
@@ -64,54 +41,34 @@ const PostViewPage = () => {
       </LinkWrap>
       <TableWrap>
         <table>
-          <tr>
-            <th colSpan={4}>{`[${post.category}] ${post.title}`}</th>
-          </tr>
-          <tr>
-            <th>작성자</th>
-            <th>{post.wname}</th>
-            <th>작성일자</th>
-            <th>{post.date}</th>
-          </tr>
+          <thead>
+            <tr>
+              <th colSpan={4}>{`[${post.category}] ${post.title}`}</th>
+            </tr>
+            <tr>
+              <th>작성자</th>
+              <th>{post.wname}</th>
+              <th>작성일자</th>
+              <th>{post.date}</th>
+            </tr>
+          </thead>
           <tbody>
-            <td colSpan={4}>{post.content}</td>
+            <tr>
+              <td colSpan={4}>{post.content}</td>
+            </tr>
           </tbody>
         </table>
         {true ? <AuthBtns /> : {}}
       </TableWrap>
-
       <CommentWrap>
         {comments.map((item, index) => (
           <Comment name={item.wname} content={item.content} key={index} />
         ))}
-        <InputComment></InputComment>
+        <InputComment />
       </CommentWrap>
     </>
   );
 };
-
-const AuthBtnWrap = styled.div`
-  display: flex;
-  width: 80%;
-  justify-content: flex-end;
-  button {
-    color: white;
-    width: 82px;
-    font-size: 1em;
-    margin: 10px 20px;
-    padding: 6px 2px;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
-    border: none;
-  }
-  .delete-Btn {
-    background-color: #ee6c4d;
-  }
-  .edit-Btn {
-    background-color: #1167b1;
-  }
-`;
 
 const AuthBtns = () => {
   return (

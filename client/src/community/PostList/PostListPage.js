@@ -3,7 +3,7 @@ import Axios from "axios";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import SearchBar from "./SearchBar";
 import { TableWrap, PaginationWrap } from "./styledPostList";
-import { WriteButton, TableHead, TableRow } from "./PostListComponents";
+import { WriteButton, TableHead, TableBody } from "./PostListComponents";
 
 const PostListPage = () => {
   const [postList, setPostList] = useState([]);
@@ -29,7 +29,7 @@ const PostListPage = () => {
   useEffect(() => {
     Axios.get("/community/post/info")
       .then((res) => {
-        console.log(res.data);
+        //console.log(res.data);
         setPostList(res.data.reverse());
         pageCount = Math.round(postList.length / limit);
       })
@@ -56,13 +56,3 @@ const PostListPage = () => {
 };
 
 export default PostListPage;
-
-const TableBody = ({ postList }) => {
-  return (
-    <tbody>
-      {postList.map((p, i) => (
-        <TableRow post={p} key={i} />
-      ))}
-    </tbody>
-  );
-};
