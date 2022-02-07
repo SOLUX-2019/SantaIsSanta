@@ -68,6 +68,7 @@ const SearchBar = () => {
           onChange={handleCategoryChange}
           defaultValue={category}
         >
+          <option value="all">전체</option>
           <option value="review">후기</option>
           <option value="new">나만 아는 산</option>
           <option value="people">크루원 모집</option>
@@ -75,7 +76,7 @@ const SearchBar = () => {
         </select>
         <input
           type="text"
-          placeholder=" Search"
+          placeholder="찾고 싶은 게시글의 제목을 입력해주세요."
           value={string}
           onChange={handleChange}
         />

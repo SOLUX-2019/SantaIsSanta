@@ -1,75 +1,70 @@
 import { useState } from "react";
-import styled from "styled-components";
+import Axios from "axios";
 import defaultImg from "../assets/img/logo_titleX.png";
+import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
+import { CommentWrap, InputWrap } from "./styledComment";
 
-const CommentWrap = styled.div`
-  width: 80%;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  padding: 10px 0;
-  img {
-    width: 50px;
-    height: 50px;
-    margin: 10px;
-  }
-  div.top {
-    display: inline-block;
-    width: 100px;
-  }
-`;
+export const Comment = ({ name, content, pid, cid }) => {
+  const [isAuthor, setIsAuthor] = useState(true);
+  const [editMode, setEditmode] = useState(false);
 
-const InputWrap = styled.div`
-  form {
-    display: flex;
-    justify-content: flex-end;
-    width: 75%;
-    margin: 10px auto;
-    align-items: center;
-  }
-  textarea {
-    display: block;
-    flex: 1;
-    height: 40px;
-    padding: 10px;
-    margin: 20px;
-    font-size: 16px;
-    resize: none;
-  }
+  const toggleEditMode = () => {
+    setEditmode(!editMode);
+  };
 
-  button {
-    background-color: #1e4620;
-    color: white;
-    width: 82px;
-    font-size: 1em;
-    margin: 10px 20px;
-    padding: 6px 2px;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
-    border: none;
-  }
-`;
+  const delelteComment = () => {
+    Axios.delete("/community/comment/delete/:id")
+      .then((res) => {})
+      .then((err) => {});
+  };
+  const editComment = () => {
+    Axios.post("/community/comment/modify")
+      .then((res) => {})
+      .then((err) => {});
+  };
 
-export const Comment = ({ name, content }) => {
   return (
     <CommentWrap>
       <img src={defaultImg} alt="프로필 사진" />
       <div>
         <div className="top">
           <h3>{name}</h3>
+          {isAuthor ? (
+            <div className="comment-btns">
+              <FaPencilAlt onClick={toggleEditMode} />
+              <FaTrashAlt />
+            </div>
+          ) : (
+            ""
+          )}
         </div>
-        <div>{content}</div>
+        <div>
+          {editMode ? <InputComment pid={pid} content={content} /> : content}
+        </div>
       </div>
     </CommentWrap>
   );
 };
 
-export const InputComment = () => {
-  const [comment, setComment] = useState("");
+export const InputComment = ({ pid, content }) => {
+  console.log(pid);
+  const [comment, setComment] = useState(content);
 
   const handleCommentChange = (event) => {
     setComment(event.target.value);
+  };
+
+  const saveComment = () => {
+    Axios.post(`/community/comment/add/${pid}`, {
+      pid: pid,
+      content: comment,
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .then((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -80,7 +75,7 @@ export const InputComment = () => {
           value={comment}
           onChange={handleCommentChange}
         ></textarea>
-        <button>댓글 작성</button>
+        <button onClick={saveComment}>댓글 작성</button>
       </form>
     </InputWrap>
   );

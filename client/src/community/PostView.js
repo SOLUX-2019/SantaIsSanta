@@ -1,61 +1,40 @@
-import styled from "styled-components";
+import { useEffect, useState } from "react";
+import Axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
 import "../../src/assets/font/font.css";
 import { Comment, InputComment } from "./Comment.js";
 import LinkButton from "./LinkButton";
 import { LinkWrap } from "./WritingPage/styledWritingPage";
-
-const TableWrap = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  font-family: "Pretendard";
-
-  table {
-    width: 80%;
-    border: 1px solid #ddd;
-  }
-  th {
-    border-bottom: 1px solid #ddd;
-    width: 25%;
-    padding: 7px 17px;
-  }
-  th: nth-child(odd) {
-    background-color: #f5f6f8;
-  }
-  td {
-    padding: 20px 20px;
-    height: 500px;
-    width: 100%;
-    text-align: center;
-  }
-`;
-
-const CommentWrap = styled.div`
-  width: 100%;
-  justify-content: center;
-`;
+import { TableWrap, CommentWrap, AuthBtnWrap } from "./styledPostView";
 
 const PostViewPage = () => {
-  let post = {
-    pid: 1,
-    category: "나만 아는 산",
-    title: "첫번째 게시글입니다.",
-    wname: "김산타",
-    date: "2022-12-25",
-    content: "내용어쩌고 산 최고 ~",
-  };
+  const [post, setPost] = useState({});
+  const [comments, setComments] = useState([]);
+  const [isAuthor, setIsAuthor] = useState(true);
+  const params = useParams();
+  let pid = params.pid;
 
-  let comments = [
-    {
-      wname: "최산타",
-      content: "댓글 내용 어쩌고 산 최고 ~",
-    },
-    {
-      wname: "최산타",
-      content: "댓글 내용 어쩌고 산 최고 ~",
-    },
-  ];
+  useEffect(() => {
+    //console.log(params);
+    Axios.get(`/community/post/one?pid=${pid}`)
+      .then((res) => {
+        console.log(res.data);
+        setPost(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    Axios.get(`/community/comment/info?pid=${pid}`)
+      .then((res, req) => {
+        console.log(res.data);
+        setComments(res.data);
+        console.log(comments);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <>
@@ -64,62 +43,83 @@ const PostViewPage = () => {
       </LinkWrap>
       <TableWrap>
         <table>
-          <tr>
-            <th colSpan={4}>{`[${post.category}] ${post.title}`}</th>
-          </tr>
-          <tr>
-            <th>작성자</th>
-            <th>{post.wname}</th>
-            <th>작성일자</th>
-            <th>{post.date}</th>
-          </tr>
+          <thead>
+            <tr>
+              <th colSpan={4}>{`[${post.category}] ${post.title}`}</th>
+            </tr>
+            <tr>
+              <th>작성자</th>
+              <th>{post.wname}</th>
+              <th>작성일자</th>
+              <th>{changeDateFormat(post.date)}</th>
+            </tr>
+          </thead>
           <tbody>
-            <td colSpan={4}>{post.content}</td>
+            <tr>
+              <td colSpan={4}>
+                <div dangerouslySetInnerHTML={{ __html: post.content }}></div>
+              </td>
+            </tr>
           </tbody>
         </table>
-        {true ? <AuthBtns /> : {}}
+        {isAuthor ? <AuthBtns _objectId={post._id} pid={post.pid} /> : ""}
       </TableWrap>
-
       <CommentWrap>
         {comments.map((item, index) => (
-          <Comment name={item.wname} content={item.content} key={index} />
+          <Comment
+            name={item.wname}
+            content={item.content}
+            pid={post.pid}
+            key={index}
+          />
         ))}
-        <InputComment></InputComment>
+        <InputComment pid={pid} />
       </CommentWrap>
     </>
   );
 };
 
-const AuthBtnWrap = styled.div`
-  display: flex;
-  width: 80%;
-  justify-content: flex-end;
-  button {
-    color: white;
-    width: 82px;
-    font-size: 1em;
-    margin: 10px 20px;
-    padding: 6px 2px;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
-    border: none;
-  }
-  .delete-Btn {
-    background-color: #ee6c4d;
-  }
-  .edit-Btn {
-    background-color: #1167b1;
-  }
-`;
+const AuthBtns = ({ _objectId, pid }) => {
+  const navigate = useNavigate();
 
-const AuthBtns = () => {
+  const deletePost = () => {
+    if (!window.confirm("정말 삭제할까요?")) return;
+    Axios.delete(`/community/post/delete/${_objectId}`)
+      .then((res) => {
+        if (!res.data.success) alert("삭제에 실패했습니다.");
+        else {
+          alert("삭제했습니다.");
+          navigate("/community");
+        }
+        console.log(res);
+      })
+      .catch((err) => {});
+  };
+
+  const clickEditBtn = (pid) => {
+    navigate(`community/post/${pid}`);
+  };
+
   return (
     <AuthBtnWrap>
-      <button className="delete-Btn">삭제하기</button>
-      <button className="edit-Btn">수정하기</button>
+      <button
+        className="delete-Btn"
+        onClick={() => {
+          deletePost();
+        }}
+      >
+        삭제하기
+      </button>
+      <button className="edit-Btn" onClick={() => clickEditBtn()}>
+        수정하기
+      </button>
     </AuthBtnWrap>
   );
+};
+
+const changeDateFormat = (date) => {
+  if (typeof date == "string") return date.substring(0, 10);
+  return "";
 };
 
 export default PostViewPage;
