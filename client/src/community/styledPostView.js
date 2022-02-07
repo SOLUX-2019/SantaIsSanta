@@ -21,7 +21,6 @@ export const TableWrap = styled.div`
   }
   td {
     padding: 20px 20px;
-    height: 500px;
     width: 100%;
     text-align: center;
   }
