@@ -1,4 +1,3 @@
-import { useEffect, userEffect, useState } from "react";
 import styled from "styled-components";
 import "../../src/assets/font/font.css";
 import React from "react";
@@ -14,7 +13,13 @@ const Container = styled.div`
     width: 100px;
   }
   td {
+    display: flex;
     width: 250px;
+  }
+
+  td.user_info > div {
+    width: inherit;
+    word-break: break-all;
   }
 `;
 
@@ -35,7 +40,9 @@ const Profile = ({ user }) => {
           </tr>
           <tr>
             <th>성별</th>
-            <td>{gender ? "남성" : "여성"}</td>
+            <td>
+              {gender ? "여성 👸" : gender === null ? "비공개 👽" : "남성 🤴"}
+            </td>
           </tr>
           <tr>
             <th>생일</th>
@@ -43,7 +50,9 @@ const Profile = ({ user }) => {
           </tr>
           <tr>
             <th>인사말</th>
-            <td>{user_info}</td>
+            <td className="user_info">
+              <div>{user_info}</div>
+            </td>
           </tr>
         </tbody>
       </table>
