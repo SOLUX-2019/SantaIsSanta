@@ -15,6 +15,14 @@ const ModifyProfile = () => {
     const [birth, setBirth] = useState(null);
     const [gender, setGender] = useState(null);
 
+    const birthParser = (birth) => {
+        if(birth == null)
+            return null;
+        else
+            //'YYYY-MM-DD' 형식으로 변경
+            return birth.substr(0,10);
+    }
+
     //렌더링 시 회원정보 불러오기
     useEffect(() => {
         Axios.get('/api/user/info')
@@ -29,7 +37,7 @@ const ModifyProfile = () => {
                 setId(res.data.id);
                 setName(res.data.name);
                 setUserInfo(res.data.user_info);
-                setBirth((res.data.birth).substr(0,10)); //'YYYY-MM-DD' 형식으로 변경
+                setBirth(birthParser(res.data.birth));
                 setGender(res.data.gender);
            }
         })
