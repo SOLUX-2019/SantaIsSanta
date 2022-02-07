@@ -249,24 +249,24 @@ app.delete("/community/post/delete/:id", (req, res) => {
 
 //-----------댓글-----------
 //댓글 저장
-app.post('/community/comment/add/:id',auth,(req,res)=>{
-    const newComment = new Comment (req.body)
-    newComment.wname=req.user.id;
-    Post.findOne({pid:req.query['pid']},(err, post)=>{
-        if(err) return res.json({success:false, err}) 
-        newComment.pid=post.pid;
-      //  console.log(post);
-        newComment.save((err, content) => {
-            if(err){
-                console.log(err)
-                return res.json({success:false, err})
-            } 
-            return res.status(200).json({     
-                success:true
-            })
-        })
-    })
-})
+app.post("/community/comment/add", auth, (req, res) => {
+  const newComment = new Comment(req.body);
+  newComment.wname = req.user.id;
+  Post.findOne({ pid: req.body["pid"] }, (err, post) => {
+    if (err) return res.json({ success: false, err });
+    newComment.pid = post.pid;
+    //  console.log(post);
+    newComment.save((err, content) => {
+      if (err) {
+        console.log(err);
+        return res.json({ success: false, err });
+      }
+      return res.status(200).json({
+        success: true,
+      });
+    });
+  });
+});
 
 // 댓글 조회
 app.get("/community/comment/info", (req, res) => {
