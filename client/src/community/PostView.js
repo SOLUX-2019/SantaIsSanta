@@ -9,30 +9,39 @@ import { TableWrap, CommentWrap, AuthBtnWrap } from "./styledPostView";
 
 const PostViewPage = ({ match }) => {
   const [post, setPost] = useState({});
+  const [comments, setComments] = useState([]);
+  const [isAuthor, setIsAuthor] = useState(false);
   const params = useParams();
+  let pid = params.pid;
 
   useEffect(() => {
-    console.log(params);
-    let pid = params.pid;
-    Axios.get("/community/post/one")
+    //console.log(params);
+    Axios.get(`/community/post/one?pid=${pid}`)
       .then((res) => {
+        console.log(res.data);
         setPost(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    Axios.get(`/community/comment/info?pid=${pid}`)
+      .then((res, req) => {
+        console.log(res.data);
+        console.log(req.user);
+        setComments(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
 
-  let comments = [
+  /*let comments = [
     {
       wname: "최산타",
       content: "댓글 내용 어쩌고 산 최고 ~",
-    },
-    {
-      wname: "최산타",
-      content: "댓글 내용 어쩌고 산 최고 ~",
-    },
-  ];
+    }
+  ];*/
 
   return (
     <>
@@ -49,7 +58,7 @@ const PostViewPage = ({ match }) => {
               <th>작성자</th>
               <th>{post.wname}</th>
               <th>작성일자</th>
-              <th>{post.date}</th>
+              <th>{changeDateFormat(post.date)}</th>
             </tr>
           </thead>
           <tbody>
@@ -58,13 +67,13 @@ const PostViewPage = ({ match }) => {
             </tr>
           </tbody>
         </table>
-        {true ? <AuthBtns /> : {}}
+        {isAuthor ? <AuthBtns /> : {}}
       </TableWrap>
       <CommentWrap>
         {comments.map((item, index) => (
           <Comment name={item.wname} content={item.content} key={index} />
         ))}
-        <InputComment />
+        <InputComment pid={pid} />
       </CommentWrap>
     </>
   );
@@ -77,6 +86,11 @@ const AuthBtns = () => {
       <button className="edit-Btn">수정하기</button>
     </AuthBtnWrap>
   );
+};
+
+const changeDateFormat = (date) => {
+  if (typeof date == "string") return date.substring(0, 10);
+  return "sorry.";
 };
 
 export default PostViewPage;
