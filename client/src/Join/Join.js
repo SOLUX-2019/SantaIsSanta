@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Wrapper, Container, Header, Form, RowGroup, Row, Title, Input, Select, Button, ImgBox } from './styledJoin';
-import { Link } from "react-router-dom";
 import Axios from 'axios';
 import defaultImg from '../assets/img/logo_titleO.png';
+import { Wrapper, Container, Header, Form, RowGroup, Row, Title, Input, Select, Button, ImgBox } from './styledJoin';
 
 const Join = () => {
     var today = new Date();
@@ -18,23 +17,13 @@ const Join = () => {
     const [gender, setGender] = useState(null);
     const [birth, setBirth] = useState(null);
 
-    //프로필 사진 업로드 안 할 시 기본 산타 이미지 백에 보냄?? 아님 null로??
-    //DB에 이미지 보낸 후  setImageURL(null);
-    const [image, setImage] = useState(null); //이미지 원본
-    const [imageURL, setImageURL] = useState(null); //화면에 이미지 미리보기를 띄우기 위한 blob type의 imgURL
+    //이미지 업로드 안 할 시 null
+    //DB에 이미지 보낸 후  setImageURL(null)?
+    //이미지 미리보기를 위한 blob type의 imgURL
+    const [imageURL, setImageURL] = useState(null); 
 
-
-    const submit = () => {
-        //업로드한 이미지 보내기 - formData 객체로 보냄
-        const formData = new FormData();
-        formData.append('file', image);
-
-        console.log({id, password, name, userInfo, gender, birth, formData, image, imageURL});
-    };
-
-    //프로필 이미지 업로드
+    //이미지 업로드
     const uploadImg = (e) => {
-        setImage(e.target.files[0])
         setImageURL(URL.createObjectURL(e.target.files[0]));
     };
 
@@ -44,6 +33,32 @@ const Join = () => {
     //     setImageURL(null);
     //     setImage(null);
     // };
+
+    const submit = () => {
+        //console.log({id, password, name, userInfo, gender, birth, imageURL});
+
+        Axios.post('/api/user/register', {
+            id: id,
+            password: password,
+            name: name,
+            user_info: userInfo,
+            gender: gender,
+            birth: birth,
+            image: imageURL
+        })
+        .then((res) => {
+            //성공
+            if(res.data.success){
+                if(window.confirm('회원가입에 성공하였습니다. 로그인 페이지로 이동할까요?'))
+                    window.location.href = '/login';
+            }
+            //실패
+            else {
+                console.log(res.data);
+                alert('회원가입에 실패하였습니다.');
+            }
+        })
+    };
 
     return (
         <Wrapper>
@@ -81,8 +96,8 @@ const Join = () => {
                             <Title>성별</Title>
                             <Select name="gender" title="선택입력" defaultValue={"null"} onChange={(e)=> setGender(JSON.parse(e.target.value))}>
                                 <option value="null">선택 안 함</option>
-                                <option value="0">남자</option>
-                                <option value="1">여자</option>
+                                <option value="false">남자</option>
+                                <option value="true">여자</option>
                             </Select>
                         </Row>
                         <Row>
@@ -93,7 +108,6 @@ const Join = () => {
                         </Row>
                     </RowGroup>
 
-                    {/* 버튼 */}
                     <Button type="button" onClick={submit}>가입하기</Button>
                </Form>
            </Container>
