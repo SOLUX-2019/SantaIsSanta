@@ -45,17 +45,24 @@ export const Row = styled.div`
     justify-content: center;
 `;
 
-export const TitleArea = styled.div`
+export const Title = styled.div`
     width: 100%;
     margin: 20px 0px 10px 0px;
+    font-family: "Jalnan";
     display: flex;
-    flex-direction: row;
     align-items: center;
+
+    .icon {
+        padding-left: 10px;
+        cursor: pointer;
+    }
 `;
 
-export const Title = styled.div`
-    margin-right: 10px;
-    font-family: "Jalnan";
+export const InputArea = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 `;
 
 export const Input = styled.input`
@@ -65,6 +72,18 @@ export const Input = styled.input`
     padding: 12px 0px;
     border: ${(props) => props.border || '1px solid lightgray'};
     border-radius: 4px;
+`;
+
+export const Msg = styled.div`
+    font-family: "Jalnan";
+    font-size: 12px;
+    color: #dd5528;
+    padding-bottom: 10px;
+    display: none;
+
+    ${InputArea}:focus-within & {
+        display: block;
+    }
 `;
 
 export const Select = styled.select`

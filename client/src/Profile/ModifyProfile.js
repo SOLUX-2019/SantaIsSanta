@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import React, { useState, useEffect }from 'react';
-import { Wrapper, Container, Header, Form, RowGroup, Row, Title, Input, Select, Button } from '../Join/styledJoin';
+import { Wrapper, Container, Header, Form, RowGroup, Row, Title, InputArea, Input, Msg, Select, Button } from '../Join/styledJoin';
 
 const ModifyProfile = () => {
     var today = new Date();
@@ -53,8 +53,9 @@ const ModifyProfile = () => {
         })
         .then((res) => {
             //성공
-            if(res.data.success)
+            if(res.data.success) {
                 alert('회원정보가 수정되었습니다.');
+            }
             //실패    
             else
                 console.log(res.data.err);
@@ -69,27 +70,42 @@ const ModifyProfile = () => {
                     <RowGroup>
                         <Row>
                             <Title>이름</Title>
-                            <Input name="userName" type="text" title="필수입력" defaultValue={name} onChange={(e)=> setName(e.target.value)}/>
+                            <InputArea>
+                                <Msg>! 최대 10자 입력 가능</Msg>
+                                <Input name="userName" type="text" title="필수입력" maxlength="10" defaultValue={name} onChange={(e)=> setName(e.target.value)}/>
+                            </InputArea>
                         </Row>
                         <Row>
                             <Title>아이디</Title>
-                            <Input name="userId" type="text" title="필수입력" defaultValue={id} onChange={(e)=> setId(e.target.value)}/>
+                            <InputArea>
+                                <Msg>! 최대 12자 입력 가능</Msg>
+                                <Input name="userId" type="text" title="필수입력" maxlength="12" defaultValue={id} onChange={(e)=> setId(e.target.value)}/>
+                            </InputArea>
                         </Row>
                         <Row>
                             <Title>한 줄 소개</Title>
-                            <Input name="userInfo" type="text" placeholder="경력을 포함한 한 줄 소개" title="필수입력" defaultValue={userInfo} onChange={(e)=> setUserInfo(e.target.value)}/>
+                            <InputArea>
+                                <Msg>! 최대 30자 입력 가능</Msg>
+                                <Input name="userInfo" type="text" placeholder="경력을 포함한 한 줄 소개" title="필수입력" maxlength="30" defaultValue={userInfo} onChange={(e)=> setUserInfo(e.target.value)}/>
+                            </InputArea>
                         </Row>
                         <Row>
                             <Title>생년월일</Title>
-                            <Input name="birth" type="date" max={dateString} title="선택입력" defaultValue={birth} onChange={(e)=> setBirth(e.target.value)}/>
+                            <InputArea>
+                                <Msg>선택입력</Msg>
+                                <Input name="birth" type="date" max={dateString} title="선택입력" defaultValue={birth} onChange={(e)=> setBirth(e.target.value)}/>
+                            </InputArea>
                         </Row>
                         <Row>
                             <Title>성별</Title>
-                            <Select name="gender" title="선택입력" key={`${gender}`} defaultValue={`${gender}`} onChange={(e)=> setGender(JSON.parse(e.target.value))}>
-                                <option value="null">선택 안 함</option>
-                                <option value="false">남자</option>
-                                <option value="true">여자</option>
-                            </Select>
+                            <InputArea>
+                                <Msg>선택입력</Msg>
+                                <Select name="gender" title="선택입력" key={`${gender}`} defaultValue={`${gender}`} onChange={(e)=> setGender(JSON.parse(e.target.value))}>
+                                    <option value="null">선택 안 함</option>
+                                    <option value="false">남자</option>
+                                    <option value="true">여자</option>
+                                </Select>
+                            </InputArea>
                         </Row>
                     </RowGroup>
 

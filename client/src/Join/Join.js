@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Axios from 'axios';
 import defaultImg from '../assets/img/logo_titleO.png';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
-import { Wrapper, Container, Header, Form, RowGroup, Row, TitleArea, Title, Input, Select, Button, ImgBox } from './styledJoin';
+import { Wrapper, Container, Header, Form, RowGroup, Row, Title, InputArea, Input, Msg, Select, Button, ImgBox } from './styledJoin';
 
 const Join = () => {
     var today = new Date();
@@ -70,29 +70,35 @@ const Join = () => {
                    {/* 필수입력 그룹 */}
                    <RowGroup>
                         <Row>
-                            <TitleArea>
-                                <Title>아이디</Title>
-                            </TitleArea>
-                            <Input name="userId" type="text" title="필수입력" maxlength="12" onChange={(e)=> setId(e.target.value)}/>
+                            <Title>아이디</Title>
+                            <InputArea>
+                                <Msg>! 최대 12자 입력 가능</Msg>
+                                <Input name="userId" type="text" title="필수입력" maxlength="12" onChange={(e)=> setId(e.target.value)}/>
+                            </InputArea>
                         </Row>
                         <Row>
-                            <TitleArea>
-                                <Title>비밀번호</Title>
-                                {isVisible ? <AiOutlineEye cursor={'pointer'} onClick={()=> setIsVisible(!isVisible)}/> : <AiOutlineEyeInvisible cursor={'pointer'} onClick={()=> setIsVisible(!isVisible)} />}
-                            </TitleArea>
-                            <Input name="password" type={isVisible ? "text" : "password"} title="필수입력" minlength="6" onChange={(e)=> setPassword(e.target.value)}/>
+                            <Title>
+                                비밀번호
+                                {isVisible ? <AiOutlineEye className="icon" onClick={()=> setIsVisible(!isVisible)}/> : <AiOutlineEyeInvisible className="icon" onClick={()=> setIsVisible(!isVisible)} />}
+                            </Title>
+                            <InputArea>
+                                <Msg>! 최소 6자 이상 입력</Msg>
+                                <Input name="password" type={isVisible ? "text" : "password"} title="필수입력" minlength="6" onChange={(e)=> setPassword(e.target.value)}/>
+                            </InputArea>
                         </Row>
                         <Row>
-                            <TitleArea>
-                                <Title>이름</Title>
-                            </TitleArea>
-                            <Input name="userName" type="text" title="필수입력" maxlength="10" onChange={(e)=> setName(e.target.value)}/>
+                            <Title>이름</Title>
+                            <InputArea>
+                                <Msg>! 최대 10자 입력 가능</Msg>
+                                <Input name="userName" type="text" title="필수입력" maxlength="10" onChange={(e)=> setName(e.target.value)}/>
+                            </InputArea>
                         </Row>
                         <Row>
-                            <TitleArea>
-                                <Title>한 줄 소개</Title>
-                            </TitleArea>
-                            <Input name="userInfo" type="text" placeholder="경력을 포함한 한 줄 소개" title="필수입력" maxlength="30" onChange={(e)=> setUserInfo(e.target.value)}/>
+                            <Title>한 줄 소개</Title>
+                            <InputArea>
+                                <Msg>! 최대 30자 입력 가능</Msg>
+                                <Input name="userInfo" type="text" placeholder="경력을 포함한 한 줄 소개" title="필수입력" maxlength="30" onChange={(e)=> setUserInfo(e.target.value)}/>
+                            </InputArea>
                         </Row>
                     </RowGroup>
 
@@ -100,15 +106,11 @@ const Join = () => {
                     <RowGroup>
                         <div id="text">선택입력</div>
                         <Row>
-                            <TitleArea>
-                                <Title>생년월일</Title>
-                            </TitleArea>
+                            <Title>생년월일</Title>
                             <Input name="birth" type="date" max={dateString} title="선택입력" onChange={(e)=> setBirth(e.target.value)}/>
                         </Row>
                         <Row>
-                            <TitleArea>
-                                <Title>성별</Title>
-                            </TitleArea>
+                            <Title>성별</Title>
                             <Select name="gender" title="선택입력" defaultValue={"null"} onChange={(e)=> setGender(JSON.parse(e.target.value))}>
                                 <option value="null">선택 안 함</option>
                                 <option value="false">남자</option>
@@ -116,9 +118,7 @@ const Join = () => {
                             </Select>
                         </Row>
                         <Row>
-                            <TitleArea>
-                                <Title title="선택입력">프로필 사진</Title>
-                            </TitleArea>
+                            <Title title="선택입력">프로필 사진</Title>
                             {imageURL ? <ImgBox src={imageURL} /> : <ImgBox src={defaultImg} />}
                             {/* {imageURL ? <DelBtn type="button" onClick={deleteImg}>삭제</DelBtn> : false} */}
                             <Input border={'none'} name="profileImg" type="file" accept="image/*" onChange={(e)=> uploadImg(e)}/>
