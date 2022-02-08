@@ -5,8 +5,7 @@ import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
 import { CommentWrap, InputWrap } from "./styledComment";
 import { useNavigate } from "react-router-dom";
 
-export const Comment = ({ name, content, pid, _id, cid }) => {
-  const [isAuthor, setIsAuthor] = useState(true);
+export const Comment = ({ name, content, pid, _id, cid, isAuthor }) => {
   const [editMode, setEditmode] = useState(false);
   const toggleEditMode = () => {
     setEditmode(!editMode);
@@ -16,7 +15,7 @@ export const Comment = ({ name, content, pid, _id, cid }) => {
     if (!window.confirm("댓글을 삭제하시겠습니까?")) return;
     Axios.delete(`/community/comment/delete/${_id}`)
       .then((res) => {
-        window.location.replace(`/community/post/${pid}`);
+        window.location.href = `/community/post/${pid}`;
       })
       .then((err) => {
         alert(err);
