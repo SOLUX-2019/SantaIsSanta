@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import Axios from 'axios';
 import defaultImg from '../assets/img/logo_titleO.png';
-import { Wrapper, Container, Header, Form, RowGroup, Row, Title, Input, Select, Button, ImgBox } from './styledJoin';
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+import { Wrapper, Container, Header, Form, RowGroup, Row, TitleArea, Title, Input, Select, Button, ImgBox } from './styledJoin';
 
 const Join = () => {
     var today = new Date();
@@ -10,6 +11,7 @@ const Join = () => {
     var day = ('0' + today.getDate()).slice(-2);
     var dateString = year + '-' + month  + '-' + day;
 
+    const[isVisible, setIsVisible] = useState(false);
     const [id, setId] = useState(null);
     const [password, setPassword] = useState(null);
     const [name, setName] = useState(null);
@@ -68,20 +70,29 @@ const Join = () => {
                    {/* 필수입력 그룹 */}
                    <RowGroup>
                         <Row>
-                            <Title>아이디</Title>
-                            <Input name="userId" type="text" title="필수입력" onChange={(e)=> setId(e.target.value)}/>
+                            <TitleArea>
+                                <Title>아이디</Title>
+                            </TitleArea>
+                            <Input name="userId" type="text" title="필수입력" maxlength="12" onChange={(e)=> setId(e.target.value)}/>
                         </Row>
                         <Row>
-                            <Title>비밀번호</Title>
-                            <Input name="password" type="password" title="필수입력" onChange={(e)=> setPassword(e.target.value)}/>
+                            <TitleArea>
+                                <Title>비밀번호</Title>
+                                {isVisible ? <AiOutlineEye cursor={'pointer'} onClick={()=> setIsVisible(!isVisible)}/> : <AiOutlineEyeInvisible cursor={'pointer'} onClick={()=> setIsVisible(!isVisible)} />}
+                            </TitleArea>
+                            <Input name="password" type={isVisible ? "text" : "password"} title="필수입력" minlength="6" onChange={(e)=> setPassword(e.target.value)}/>
                         </Row>
                         <Row>
-                            <Title>이름</Title>
-                            <Input name="userName" type="text" title="필수입력"  onChange={(e)=> setName(e.target.value)}/>
+                            <TitleArea>
+                                <Title>이름</Title>
+                            </TitleArea>
+                            <Input name="userName" type="text" title="필수입력" maxlength="10" onChange={(e)=> setName(e.target.value)}/>
                         </Row>
                         <Row>
-                            <Title>한 줄 소개</Title>
-                            <Input name="userInfo" type="text" placeholder="경력을 포함한 한 줄 소개" title="필수입력"  onChange={(e)=> setUserInfo(e.target.value)}/>
+                            <TitleArea>
+                                <Title>한 줄 소개</Title>
+                            </TitleArea>
+                            <Input name="userInfo" type="text" placeholder="경력을 포함한 한 줄 소개" title="필수입력" maxlength="30" onChange={(e)=> setUserInfo(e.target.value)}/>
                         </Row>
                     </RowGroup>
 
@@ -89,11 +100,15 @@ const Join = () => {
                     <RowGroup>
                         <div id="text">선택입력</div>
                         <Row>
-                            <Title>생년월일</Title>
+                            <TitleArea>
+                                <Title>생년월일</Title>
+                            </TitleArea>
                             <Input name="birth" type="date" max={dateString} title="선택입력" onChange={(e)=> setBirth(e.target.value)}/>
                         </Row>
                         <Row>
-                            <Title>성별</Title>
+                            <TitleArea>
+                                <Title>성별</Title>
+                            </TitleArea>
                             <Select name="gender" title="선택입력" defaultValue={"null"} onChange={(e)=> setGender(JSON.parse(e.target.value))}>
                                 <option value="null">선택 안 함</option>
                                 <option value="false">남자</option>
@@ -101,7 +116,9 @@ const Join = () => {
                             </Select>
                         </Row>
                         <Row>
-                            <Title title="선택입력">프로필 사진</Title>
+                            <TitleArea>
+                                <Title title="선택입력">프로필 사진</Title>
+                            </TitleArea>
                             {imageURL ? <ImgBox src={imageURL} /> : <ImgBox src={defaultImg} />}
                             {/* {imageURL ? <DelBtn type="button" onClick={deleteImg}>삭제</DelBtn> : false} */}
                             <Input border={'none'} name="profileImg" type="file" accept="image/*" onChange={(e)=> uploadImg(e)}/>

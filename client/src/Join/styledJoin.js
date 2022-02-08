@@ -45,9 +45,16 @@ export const Row = styled.div`
     justify-content: center;
 `;
 
-export const Title = styled.div`
+export const TitleArea = styled.div`
     width: 100%;
     margin: 20px 0px 10px 0px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+`;
+
+export const Title = styled.div`
+    margin-right: 10px;
     font-family: "Jalnan";
 `;
 
