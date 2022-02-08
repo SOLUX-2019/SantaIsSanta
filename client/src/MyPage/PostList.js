@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
@@ -16,29 +15,14 @@ const Container = styled.div`
 `;
 
 const PostList = ({ postList }) => {
-  // const [posts, setPosts] = useState([
-  //   "[후기] 무등산 갔다온 썰 푼다.",
-  //   "[자유] 무등산 수박 왤케 비쌈?",
-  //   "[나만아는산] 우리집뒤에신선산있음.",
-  //   "[크루원모집] 무등산 수박 먹으러 갈 사람!",
-  //   "[후기] 무등산 갔다온 썰 푼다.",
-  //   "[자유] 무등산 수박 왤케 비쌈?",
-  //   "[나만아는산] 우리집뒤에신선산있음.",
-  //   "[크루원모집] 무등산 수박 먹으러 갈 사람!",
-  // ]);
-
-  //   useEffect(() => {
-  //     setPosts([
-  //   }, []);
-
   return (
     <div>
       <h2>작성한 글 목록</h2>
       <Container>
-        {postList.Length
-          ? postList.map((title, index) => (
-              <Link to="community/post/1" key={index}>
-                {title}
+        {postList.length
+          ? postList.map((post) => (
+              <Link to={`/community/post/${post.pid}`} key={post._id}>
+                {`[${post.category}] ${post.title}`}
               </Link>
             ))
           : "작성한 글이 없습니다. 😥"}

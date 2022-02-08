@@ -16,18 +16,18 @@ const MyPage = () => {
   useEffect(() => {
     Axios.get("/api/user/info")
       .then((res) => {
-        //console.log(res.data);
         setUser(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
+
     Axios.get("/api/user/post")
       .then((res) => {
         setPostList(res.data);
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
       });
   }, []);
 
@@ -35,7 +35,7 @@ const MyPage = () => {
     <>
       <Wrap>
         <LeftContainer>
-          <img src={defaultImg} alt={"프로필 사진"} />
+          <img src={user.img ? user.img : defaultImg} alt={"프로필 사진"} />
           <Link className="goEdit" to="/modifyProfile">
             회원정보 수정
             <FaPencilAlt />
