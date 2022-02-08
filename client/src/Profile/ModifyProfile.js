@@ -55,6 +55,7 @@ const ModifyProfile = () => {
             //성공
             if(res.data.success) {
                 alert('회원정보가 수정되었습니다.');
+                window.location.href = '/myPage';
             }
             //실패    
             else
