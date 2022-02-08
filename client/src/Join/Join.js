@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Axios from 'axios';
-import defaultImg from '../assets/img/logo_titleO.png';
+import defaultImg from '../assets/img/logo_titleX.png';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
-import { Wrapper, Container, Header, Form, RowGroup, Row, Title, InputArea, Input, Msg, Select, Button, ImgBox } from './styledJoin';
+import { Wrapper, Container, Header, Form, RowGroup, Row, Title, InputArea, Input, Msg, Select, Button, ImgBox, ImgBtn } from './styledJoin';
 
 const Join = () => {
     var today = new Date();
@@ -18,26 +18,26 @@ const Join = () => {
     const [userInfo, setUserInfo] = useState(null);
     const [gender, setGender] = useState(null);
     const [birth, setBirth] = useState(null);
+    const [imageURL, setImageURL] = useState(null);  //이미지 미리보기를 위한 blob type의 imgURL
 
-    //이미지 업로드 안 할 시 null
-    //DB에 이미지 보낸 후  setImageURL(null)?
-    //이미지 미리보기를 위한 blob type의 imgURL
-    const [imageURL, setImageURL] = useState(null); 
+    //업로드 버튼 클릭 시
+    const uploadHandler = () => {
+        document.getElementById("uploadBtn").click();
+    }
 
     //이미지 업로드
     const uploadImg = (e) => {
-        setImageURL(URL.createObjectURL(e.target.files[0]));
+        if(e.target.files[0])
+            setImageURL(URL.createObjectURL(e.target.files[0]));
     };
 
     //업로드한 이미지 삭제
-    // const deleteImg = () => {
-    //     URL.revokeObjectURL(imageURL);
-    //     setImageURL(null);
-    //     setImage(null);
-    // };
+    const deleteImg = () => {
+        setImageURL(null);
+    };
 
     const submit = () => {
-        //console.log({id, password, name, userInfo, gender, birth, imageURL});
+        console.log({id, password, name, userInfo, gender, birth, imageURL});
 
         Axios.post('/api/user/register', {
             id: id,
@@ -120,8 +120,9 @@ const Join = () => {
                         <Row>
                             <Title title="선택입력">프로필 사진</Title>
                             {imageURL ? <ImgBox src={imageURL} /> : <ImgBox src={defaultImg} />}
-                            {/* {imageURL ? <DelBtn type="button" onClick={deleteImg}>삭제</DelBtn> : false} */}
-                            <Input border={'none'} name="profileImg" type="file" accept="image/*" onChange={(e)=> uploadImg(e)}/>
+                            {imageURL ? <ImgBtn type="button" color={'#1167b1'} onClick={deleteImg}>취소</ImgBtn> 
+                                : <ImgBtn type="button" onClick={uploadHandler}>업로드</ImgBtn>}
+                            <Input display={'none'} id="uploadBtn" name="profileImg" type="file" accept="image/*" onChange={(e)=> uploadImg(e)}/>
                         </Row>
                     </RowGroup>
 
