@@ -11,7 +11,7 @@ export const Container = styled.div`
 
 export const Header = styled.h1`
     font-size: 3em;
-    font-family: "Pretendard";
+    font-family: "Jalnan";
 `;
 
 export const Form = styled.form`
@@ -35,7 +35,7 @@ export const Form = styled.form`
         background-color: #1E4620;
         color: white;
         font-weight: bold;
-        font-family: "Pretendard";
+        font-family: "Jalnan";
         width: 30%;
         font-size: 1.5em;
         padding: 17px 0px;
@@ -61,17 +61,17 @@ export const Footer = styled.div`
         
     div {
         font-size: 0.9em;
-        font-family: "Pretendard";
+        font-family: "Jalnan";
     }
         
     .link {
         font-size: 0.9em;
-        font-family: "Pretendard";
+        font-family: "Jalnan";
         text-decoration: none;
         color: black;
 
         &:hover {
-            font-weight: bold;
+            color: #dd5528;
             text-decoration: underline;
             cursor: pointer;
         }
