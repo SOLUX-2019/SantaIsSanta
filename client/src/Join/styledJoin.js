@@ -15,7 +15,7 @@ export const Container = styled.div`
 
 export const Header = styled.h1`
     font-size: 3em;
-    font-family: "Pretendard";
+    font-family: "Jalnan";
 `;
 
 export const Form = styled.form`
@@ -33,7 +33,8 @@ export const RowGroup = styled.div`
     margin-bottom: 50px;
 
     #text {
-        font-family: "Pretendard";
+        font-family: "Jalnan";
+        color: #dd5528;
     }
 `;
 
@@ -47,7 +48,21 @@ export const Row = styled.div`
 export const Title = styled.div`
     width: 100%;
     margin: 20px 0px 10px 0px;
-    font-family: "Pretendard";
+    font-family: "Jalnan";
+    display: flex;
+    align-items: center;
+
+    .icon {
+        padding-left: 10px;
+        cursor: pointer;
+    }
+`;
+
+export const InputArea = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 `;
 
 export const Input = styled.input`
@@ -56,7 +71,20 @@ export const Input = styled.input`
     font-size: 1em;
     padding: 12px 0px;
     border: ${(props) => props.border || '1px solid lightgray'};
+    display: ${(props) => props.display || 'block'};
     border-radius: 4px;
+`;
+
+export const Msg = styled.div`
+    font-family: "Jalnan";
+    font-size: 12px;
+    color: #dd5528;
+    padding-bottom: 10px;
+    display: none;
+
+    ${InputArea}:focus-within & {
+        display: block;
+    }
 `;
 
 export const Select = styled.select`
@@ -73,12 +101,13 @@ export const Button = styled.button`
     background-color: #1E4620;
     color: white;
     font-weight: bold;
-    font-family: "Pretendard";
+    font-family: "Jalnan";
     width: 30%;
     font-size: 1.3em;
     padding: 15px 0px;
     border: 1px solid #1E4620;
     border-radius: 4px;
+    margin-bottom: 50px;
 
     :hover {
         cursor: pointer;
@@ -86,20 +115,18 @@ export const Button = styled.button`
 `;
 
 export const ImgBox = styled.img`
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
 `;
 
-export const DelBtn = styled.button`
-    background-color: #E74C3C;
+export const ImgBtn = styled.button`
+    background-color: ${(props) => props.color || '#dd5528'};
     color: white;
-    font-weight: bold;
-    font-family: "Pretendard";
-    border-radius: 4px;
-    width: 50px;
-    margin: 10px 0px;
+    font-family: "Jalnan";
     border: none;
-    :hover {
-        cursor: pointer;
-    }
+    border-radius: 4px;
+    width: 80px;
+    height: 30px;
+    margin: 10px 0px;
+    cursor: pointer;
 `;
