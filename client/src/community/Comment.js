@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 export const Comment = ({ name, content, pid, _id, cid }) => {
   const [isAuthor, setIsAuthor] = useState(true);
   const [editMode, setEditmode] = useState(false);
-  const navigate = useNavigate();
   const toggleEditMode = () => {
     setEditmode(!editMode);
   };
@@ -19,18 +18,9 @@ export const Comment = ({ name, content, pid, _id, cid }) => {
       .then((res) => {
         window.location.replace(`/community/post/${pid}`);
       })
-      .then((err) => {});
-  };
-  const editComment = () => {
-    Axios.post("/community/comment/modify", {
-      pid: pid,
-      content: content,
-      cid: cid,
-    })
-      .then((res) => {
-        if (!res.data.success) alert("댓글 수정 실패");
-      })
-      .then((err) => {});
+      .then((err) => {
+        alert(err);
+      });
   };
 
   return (
@@ -50,7 +40,7 @@ export const Comment = ({ name, content, pid, _id, cid }) => {
         </div>
         <div>
           {editMode ? (
-            <InputComment pid={pid} content={content} cid={cid} />
+            <EditComment pid={pid} content={content} cid={cid} />
           ) : (
             content
           )}
@@ -60,19 +50,51 @@ export const Comment = ({ name, content, pid, _id, cid }) => {
   );
 };
 
-export const InputComment = ({ pid, cid, content }) => {
-  console.log(pid);
+export const EditComment = ({ pid, cid, content }) => {
   const [comment, setComment] = useState(content);
 
   const handleCommentChange = (event) => {
     setComment(event.target.value);
   };
 
-  const saveComment = () => {
-    Axios.post(`/community/comment/modify`, {
+  const editComment = () => {
+    Axios.post("/community/comment/modify", {
       pid: pid,
-      cid: cid,
       content: comment,
+      cid: cid,
+    })
+      .then((res) => {
+        if (!res.data.success) alert("댓글 수정 실패");
+      })
+      .then((err) => {});
+  };
+
+  return (
+    <InputWrap>
+      <form>
+        <textarea
+          placeholder="댓글을 작성하세요"
+          value={comment}
+          onChange={handleCommentChange}
+        ></textarea>
+        <button onClick={editComment}>수정 하기</button>
+      </form>
+    </InputWrap>
+  );
+};
+
+export const NewComment = ({ pid }) => {
+  const [comment, setComment] = useState("");
+
+  const handleCommentChange = (event) => {
+    setComment(event.target.value);
+  };
+
+  const saveComment = () => {
+    Axios.post("/community/comment/add", {
+      wname: "", //쓰지도 않는 정보를 요청바디에 넣어줘야해.. 우하하....
+      content: comment,
+      pid: pid,
     })
       .then((res) => {
         console.log(res);

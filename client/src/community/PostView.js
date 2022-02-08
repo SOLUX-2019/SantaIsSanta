@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import "../../src/assets/font/font.css";
-import { Comment, InputComment } from "./Comment.js";
+import { Comment, NewComment } from "./Comment.js";
 import LinkButton from "./LinkButton";
 import { LinkWrap } from "./WritingPage/styledWritingPage";
 import { TableWrap, CommentWrap, AuthBtnWrap } from "./styledPostView";
@@ -15,7 +15,6 @@ const PostViewPage = () => {
   let pid = params.pid;
 
   useEffect(() => {
-    //console.log(params);
     Axios.get(`/community/post/one?pid=${pid}`)
       .then((res) => {
         console.log(res.data);
@@ -27,9 +26,7 @@ const PostViewPage = () => {
 
     Axios.get(`/community/comment/info?pid=${pid}`)
       .then((res, req) => {
-        console.log(res.data);
         setComments(res.data);
-        console.log(comments);
       })
       .catch((err) => {
         console.log(err);
@@ -72,10 +69,10 @@ const PostViewPage = () => {
             pid={item.pid}
             cid={item.cid}
             _id={item._id}
-            key={item.id}
+            key={item._id}
           />
         ))}
-        <InputComment pid={pid} />
+        <NewComment pid={pid} />
       </CommentWrap>
     </>
   );
