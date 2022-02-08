@@ -1,9 +1,9 @@
-import Axios from "axios";
 import { useEffect, useState } from "react";
+import Axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import LinkButton from "../LinkButton";
-import { FormWrap, LinkWrap } from "./styledWritingPage";
 import Writer from "./Writer";
+import { FormWrap, LinkWrap } from "./styledWritingPage";
 
 const WritingPage = () => {
   const [content, setContent] = useState("");
