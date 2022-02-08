@@ -17,12 +17,20 @@ const MyPage = () => {
   useEffect(() => {
     Axios.get("/api/user/info")
       .then((res) => {
-        /*console.log(res.data);
-        if (!res.data.success) {
-          alert("로그인 후 이용해 주세요.");
-          navigate("/login");
+        if (res.data.error) {
+          console.log(1);
+          if (!res.data.isAuth) {
+            console.log(2);
+            alert("로그인 후 이용해 주세요.");
+            return navigate("/login");
+          } else {
+            alert("error");
+            return navigate("/");
+          }
+        } else {
+          console.log(3);
+          setUser(res.data);
         }
-        setUser(res.data);*/
       })
       .catch((err) => {
         console.log(err);
@@ -39,24 +47,20 @@ const MyPage = () => {
 
   return (
     <>
-      {user == {} ? (
-        <Wrap>
-          <LeftContainer>
-            <img src={user.img ? user.img : defaultImg} alt={"프로필 사진"} />
-            <Link className="goEdit" to="/modifyProfile">
-              회원정보 수정
-              <FaPencilAlt />
-            </Link>
-            <Profile user={user} />
-          </LeftContainer>
-          <RightContainer>
-            <BadgeCollection postCount={postList.length} />
-            <PostList postList={postList} />
-          </RightContainer>
-        </Wrap>
-      ) : (
-        ""
-      )}
+      <Wrap>
+        <LeftContainer>
+          <img src={user.img ? user.img : defaultImg} alt={"프로필 사진"} />
+          <Link className="goEdit" to="/modifyProfile">
+            회원정보 수정
+            <FaPencilAlt />
+          </Link>
+          <Profile user={user} />
+        </LeftContainer>
+        <RightContainer>
+          <BadgeCollection postCount={postList.length} />
+          <PostList postList={postList} />
+        </RightContainer>
+      </Wrap>
     </>
   );
 };
