@@ -2,7 +2,6 @@ const { ObjectId } = require('bson');
 const mongoose = require('mongoose');
 
 const mountainSchema = mongoose.Schema({
-   
     name:{
         type:String,
         maxLength:5
@@ -15,6 +14,7 @@ const mountainSchema = mongoose.Schema({
     },
     
     photo:{
+        type:String,
     },
     content:{
         type:String,
@@ -28,6 +28,9 @@ const mountainSchema = mongoose.Schema({
     },
     warning:{
         type:String,
+    },
+    region:{
+        type:String
     }
     })
 

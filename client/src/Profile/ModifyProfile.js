@@ -1,5 +1,6 @@
 import Axios from 'axios';
 import React, { useState, useEffect }from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Wrapper, Container, Header, Form, RowGroup, Row, Title, InputArea, Input, Msg, Select, Button } from '../Join/styledJoin';
 
 const ModifyProfile = () => {
@@ -14,6 +15,7 @@ const ModifyProfile = () => {
     const [userInfo, setUserInfo] = useState("");
     const [birth, setBirth] = useState(null);
     const [gender, setGender] = useState(null);
+    const navigate = useNavigate();
 
     const birthParser = (birth) => {
         if(birth == null) return null;
@@ -53,7 +55,7 @@ const ModifyProfile = () => {
             //성공
             if(res.data.success) {
                 alert('회원정보가 수정되었습니다.');
-                window.location.href = '/myPage';
+                navigate('/myPage');
             }
             //실패    
             else
@@ -71,21 +73,21 @@ const ModifyProfile = () => {
                             <Title>이름</Title>
                             <InputArea>
                                 <Msg>! 최대 10자 입력 가능</Msg>
-                                <Input name="userName" type="text" title="필수입력" maxlength="10" defaultValue={name} onChange={(e)=> setName(e.target.value)}/>
+                                <Input name="userName" type="text" title="필수입력" maxLength="10" defaultValue={name} onChange={(e)=> setName(e.target.value)}/>
                             </InputArea>
                         </Row>
                         <Row>
                             <Title>아이디</Title>
                             <InputArea>
-                                <Msg>! 최대 12자 입력 가능</Msg>
-                                <Input name="userId" type="text" title="필수입력" maxlength="12" defaultValue={id} onChange={(e)=> setId(e.target.value)}/>
+                                <Msg>수정 불가</Msg>
+                                <Input name="userId" type="text" title="필수입력" value={id} readOnly/>
                             </InputArea>
                         </Row>
                         <Row>
                             <Title>한 줄 소개</Title>
                             <InputArea>
                                 <Msg>! 최대 30자 입력 가능</Msg>
-                                <Input name="userInfo" type="text" placeholder="경력을 포함한 한 줄 소개" title="필수입력" maxlength="30" defaultValue={userInfo} onChange={(e)=> setUserInfo(e.target.value)}/>
+                                <Input name="userInfo" type="text" placeholder="경력을 포함한 한 줄 소개" title="필수입력" maxLength="30" defaultValue={userInfo} onChange={(e)=> setUserInfo(e.target.value)}/>
                             </InputArea>
                         </Row>
                         <Row>
