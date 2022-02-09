@@ -11,6 +11,7 @@ const Container = styled.div`
   th {
     font-family: "Jalnan";
     width: 100px;
+    text-align: end;
   }
   td {
     display: flex;
@@ -35,17 +36,17 @@ const Profile = ({ user }) => {
       <table>
         <tbody>
           <tr>
-            <th>이름</th>
+            <th> 이름</th>
             <td>{name}</td>
           </tr>
           <tr>
-            <th>성별</th>
+            <th> 성별</th>
             <td>
               {gender ? "여성 👸" : gender === null ? "비공개 👽" : "남성 🤴"}
             </td>
           </tr>
           <tr>
-            <th>생일</th>
+            <th> 생일</th>
             <td>{birth ? changeDateFormat(birth) : ""}</td>
           </tr>
           <tr>

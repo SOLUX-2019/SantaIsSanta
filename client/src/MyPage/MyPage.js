@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaPencilAlt } from "react-icons/fa";
 import "../../src/assets/font/font.css";
 import { Wrap, LeftContainer, RightContainer } from "./styledMyPage";
@@ -12,11 +12,25 @@ import BadgeCollection from "./BadgeCollection";
 const MyPage = () => {
   const [user, setUser] = useState({});
   const [postList, setPostList] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     Axios.get("/api/user/info")
       .then((res) => {
-        setUser(res.data);
+        if (res.data.error) {
+          console.log(1);
+          if (!res.data.isAuth) {
+            console.log(2);
+            alert("로그인 후 이용해 주세요.");
+            return navigate("/login");
+          } else {
+            alert("error");
+            return navigate("/");
+          }
+        } else {
+          console.log(3);
+          setUser(res.data);
+        }
       })
       .catch((err) => {
         console.log(err);
