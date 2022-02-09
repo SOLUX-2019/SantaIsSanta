@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Axios from 'axios';
 import { List, Item, Cont, Image, Text } from './styledRegionPage';
 import jirisan from '../../assets/img/jirisan.png';
 import guemo from '../../assets/img/guemo.png';
@@ -8,54 +10,35 @@ import palgong from '../../assets/img/palgong.png';
 import "../../assets/font/font.css";
 
 const MountainList = ({region}) => {
+    const [list, setList] = useState([]);
+    const navigate = useNavigate();
 
-    return (
-        <List>
-            <Item>
+    useEffect(() => {
+        Axios.get(`/mountain/region/info?region=${region}`)
+        .then((res) => {
+            if(res.data.Success == undefined)
+                setList(res.data);
+            else
+                alert(res.data.message);
+        })
+        .catch((err) => console.log(err));
+    }, [region]);
+
+    const mountainList = list.map((item) => 
+            <Item key={item._id}>
                 <Cont>
                     <Image>
                         <img src={guemo} alt="금오산" />
-                        <div className="img_hover" title="페이지 이동">자세히 보기</div>
+                        <div className="img_hover" title="페이지 이동" onClick={() => navigate(`/mountain/info?region=${region}&mid=${item.mid}`)}>자세히 보기</div>
                     </Image>
-                    <Text>금오산</Text>
+                    <Text>{item.name}</Text>
                 </Cont>
             </Item>
-            <Item>
-                <Cont>
-                    <Image>
-                        <img src={jirisan} alt="지리산" />
-                        <div className="img_hover" title="페이지 이동" onClick={() => window.location.href=`/mountain/info?region=${region}&mid=지리산`}>자세히 보기</div>
-                    </Image>
-                    <Text>지리산</Text>
-                </Cont>
-            </Item>
-            <Item>
-                <Cont>
-                    <Image>
-                        <img src={juwang} alt="주왕산" />
-                        <div className="img_hover" title="페이지 이동">자세히 보기</div>
-                    </Image>
-                    <Text>주왕산</Text>
-                </Cont>
-            </Item>
-            <Item>
-                <Cont>
-                    <Image>
-                        <img src={palgak} alt="팔각산" />
-                        <div className="img_hover" title="페이지 이동">자세히 보기</div>
-                    </Image>
-                    <Text>팔각산</Text>
-                </Cont>
-            </Item>
-            <Item>
-                <Cont>
-                    <Image>
-                        <img src={palgong} alt="팔공산" />
-                        <div className="img_hover" title="페이지 이동">자세히 보기</div>
-                    </Image>
-                    <Text>팔공산</Text>
-                </Cont>
-            </Item>
+    )
+
+    return (
+        <List>
+            {mountainList}
         </List>
     );
 }
