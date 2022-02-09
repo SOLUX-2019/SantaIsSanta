@@ -5,6 +5,7 @@ export const TableWrap = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
+  min-height: 40vh;
   font-family: "Pretendard";
 
   table {
@@ -23,6 +24,7 @@ export const TableWrap = styled.div`
     padding: 20px 20px;
     width: 100%;
     text-align: center;
+    height: 150px;
   }
 `;
 

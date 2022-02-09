@@ -15,6 +15,7 @@ export const TableWrap = styled.div`
     border-bottom: 1px solid #e8e8e8;
     padding: 10px 5px;
     font-weight: bold;
+    width: 100px;
   }
   tr:hover {
     background-color: #f5f6f8;
@@ -31,7 +32,12 @@ export const TableWrap = styled.div`
     text-decoration: none;
     color: black;
   }
-
+  th:nth-child(2) {
+    width: 445px;
+  }
+  th:nth-child(3) {
+    width: 124px;
+  }
   .writebutton {
     display: flex;
     justify-content: end;

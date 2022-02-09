@@ -39,7 +39,14 @@ export const Comment = ({ name, content, pid, _id, cid, isAuthor }) => {
         </div>
         <div>
           {editMode ? (
-            <EditComment pid={pid} content={content} cid={cid} />
+            <EditComment
+              pid={pid}
+              content={content}
+              cid={cid}
+              setEditmode={() => {
+                setEditmode(false);
+              }}
+            />
           ) : (
             content
           )}
@@ -49,7 +56,7 @@ export const Comment = ({ name, content, pid, _id, cid, isAuthor }) => {
   );
 };
 
-export const EditComment = ({ pid, cid, content }) => {
+export const EditComment = ({ pid, cid, content, setEditmode }) => {
   const [comment, setComment] = useState(content);
 
   const handleCommentChange = (event) => {
@@ -65,6 +72,7 @@ export const EditComment = ({ pid, cid, content }) => {
     })
       .then((res) => {
         if (!res.data.success) alert("댓글 수정 실패");
+        setEditmode();
       })
       .then((err) => {});
   };
@@ -81,7 +89,9 @@ export const EditComment = ({ pid, cid, content }) => {
             maxLength="50"
           />
         </InputArea>
-        <button onClick={editComment}>수정하기</button>
+        <button onClick={editComment} type="button">
+          수정하기
+        </button>
       </form>
     </InputWrap>
   );

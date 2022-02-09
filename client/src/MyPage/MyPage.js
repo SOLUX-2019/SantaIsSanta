@@ -52,7 +52,7 @@ const MyPage = () => {
           {!isLoading && (
             <>
               <img
-                src={user.image ? user.image : defaultImg}
+                src={user.image ? defaultImg : defaultImg}
                 alt={"프로필 사진"}
               />
               <Link className="goEdit" to="/modifyProfile">
