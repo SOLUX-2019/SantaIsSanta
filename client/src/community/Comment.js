@@ -3,7 +3,7 @@ import Axios from "axios";
 import defaultImg from "../assets/img/logo_titleX.png";
 import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
 import { CommentWrap, InputWrap } from "./styledComment";
-import { useNavigate } from "react-router-dom";
+import { InputArea, Msg } from "./CharacterLimit";
 
 export const Comment = ({ name, content, pid, _id, cid, isAuthor }) => {
   const [editMode, setEditmode] = useState(false);
@@ -18,7 +18,7 @@ export const Comment = ({ name, content, pid, _id, cid, isAuthor }) => {
         window.location.href = `/community/post/${pid}`;
       })
       .then((err) => {
-        alert(err);
+        //alert(err);
       });
   };
 
@@ -53,6 +53,7 @@ export const EditComment = ({ pid, cid, content }) => {
   const [comment, setComment] = useState(content);
 
   const handleCommentChange = (event) => {
+    if (event.target.value > 50) return;
     setComment(event.target.value);
   };
 
@@ -71,12 +72,16 @@ export const EditComment = ({ pid, cid, content }) => {
   return (
     <InputWrap>
       <form>
-        <textarea
-          placeholder="댓글을 작성하세요"
-          value={comment}
-          onChange={handleCommentChange}
-        ></textarea>
-        <button onClick={editComment}>수정 하기</button>
+        <InputArea>
+          <Msg>! 최대 50자 입력 가능</Msg>
+          <textarea
+            placeholder="댓글을 작성하세요"
+            value={comment}
+            onChange={handleCommentChange}
+            maxLength="50"
+          />
+        </InputArea>
+        <button onClick={editComment}>수정하기</button>
       </form>
     </InputWrap>
   );
@@ -86,32 +91,45 @@ export const NewComment = ({ pid }) => {
   const [comment, setComment] = useState("");
 
   const handleCommentChange = (event) => {
+    if (event.target.value > 50) return;
     setComment(event.target.value);
   };
 
   const saveComment = () => {
-    Axios.post("/community/comment/add", {
-      wname: "", //쓰지도 않는 정보를 요청바디에 넣어줘야해.. 우하하....
-      content: comment,
-      pid: pid,
-    })
-      .then((res) => {
-        console.log(res);
+    if (!comment.length) {
+      alert("댓글 내용을 입력해주세요!");
+      return;
+    } else {
+      Axios.post("/community/comment/add", {
+        wname: "", //쓰지도 않는 정보를 요청바디에 넣어줘야해.. 우하하....
+        content: comment,
+        pid: pid,
       })
-      .then((err) => {
-        console.log(err);
-      });
+        .then((res) => {
+          window.location.href = `/community/post/${pid}`;
+          console.log(res);
+        })
+        .then((err) => {
+          console.log(err);
+        });
+    }
   };
 
   return (
     <InputWrap>
-      <form>
-        <textarea
-          placeholder="댓글을 작성하세요"
-          value={comment}
-          onChange={handleCommentChange}
-        ></textarea>
-        <button onClick={saveComment}>댓글 작성</button>
+      <form className="new">
+        <InputArea>
+          <Msg>! 최대 50자 입력 가능</Msg>
+          <textarea
+            placeholder="댓글을 작성하세요"
+            value={comment}
+            onChange={handleCommentChange}
+            maxLength="50"
+          />
+        </InputArea>
+        <button onClick={saveComment} type="button">
+          댓글 작성
+        </button>
       </form>
     </InputWrap>
   );
