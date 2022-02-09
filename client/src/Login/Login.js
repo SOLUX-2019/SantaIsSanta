@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { Container, Header, Form, Footer } from './styledLogin';
 import Axios from 'axios';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../../src/assets/font/font.css";
 
 const Login = () => {
     const [id, setId] = useState("");
     const [password, setPassword] = useState("");
-
+    const navigate = useNavigate();
+    
     const submit = () => {
        Axios.post('/api/user/login', {
            id: id,
@@ -16,7 +17,7 @@ const Login = () => {
        .then((res) => {
            if(res.data.loginSuccess) {
                alert('산타는산타에 오신 것을 환영합니다!');
-               window.location.href = '/';
+               navigate('/');
            }
            else {
                alert(res.data.message);

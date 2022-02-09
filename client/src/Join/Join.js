@@ -73,7 +73,7 @@ const Join = () => {
                             <Title>아이디</Title>
                             <InputArea>
                                 <Msg>! 최대 12자 입력 가능</Msg>
-                                <Input name="userId" type="text" title="필수입력" maxlength="12" onChange={(e)=> setId(e.target.value)}/>
+                                <Input name="userId" title="필수입력" type="text" maxLength="12" required onChange={(e)=> setId(e.target.value)}/>
                             </InputArea>
                         </Row>
                         <Row>
@@ -83,21 +83,21 @@ const Join = () => {
                             </Title>
                             <InputArea>
                                 <Msg>! 최소 6자 이상 입력</Msg>
-                                <Input name="password" type={isVisible ? "text" : "password"} title="필수입력" minlength="6" onChange={(e)=> setPassword(e.target.value)}/>
+                                <Input name="password" type={isVisible ? "text" : "password"} title="필수입력" minLength="6" required onChange={(e)=> setPassword(e.target.value)}/>
                             </InputArea>
                         </Row>
                         <Row>
                             <Title>이름</Title>
                             <InputArea>
                                 <Msg>! 최대 10자 입력 가능</Msg>
-                                <Input name="userName" type="text" title="필수입력" maxlength="10" onChange={(e)=> setName(e.target.value)}/>
+                                <Input name="userName" type="text" title="필수입력" maxLength="10" required onChange={(e)=> setName(e.target.value)}/>
                             </InputArea>
                         </Row>
                         <Row>
                             <Title>한 줄 소개</Title>
                             <InputArea>
                                 <Msg>! 최대 30자 입력 가능</Msg>
-                                <Input name="userInfo" type="text" placeholder="경력을 포함한 한 줄 소개" title="필수입력" maxlength="30" onChange={(e)=> setUserInfo(e.target.value)}/>
+                                <Input name="userInfo" type="text" placeholder="경력을 포함한 한 줄 소개" title="필수입력" maxLength="30" required onChange={(e)=> setUserInfo(e.target.value)}/>
                             </InputArea>
                         </Row>
                     </RowGroup>
@@ -126,7 +126,7 @@ const Join = () => {
                         </Row>
                     </RowGroup>
 
-                    <Button type="button" onClick={submit}>가입하기</Button>
+                    <Button type="submit" onClick={submit}>가입하기</Button>
                </Form>
            </Container>
         </Wrapper>
