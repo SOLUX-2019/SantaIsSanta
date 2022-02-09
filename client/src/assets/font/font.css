@@ -7,3 +7,10 @@
   font-family: "Pretendard";
   src: url("./Pretendard-Medium.ttf");
 }
+
+@font-face {
+  font-family: "Leferi";
+  src: url("./LeferiPointWhiteOblique.ttf");
+  font-weight: lighter;
+  font-style: normal;
+}
