@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import "../../src/assets/font/font.css";
 
 export const CommentWrap = styled.div`
   width: 80%;
@@ -36,30 +37,35 @@ export const CommentWrap = styled.div`
   }
 `;
 export const InputWrap = styled.div`
+  font-family: "Pretendard";
   form {
     display: flex;
     justify-content: flex-end;
-    width: 75%;
     margin: 10px auto;
     align-items: center;
   }
+  form.new {
+    margin: 15px auto;
+    width: 75%;
+  }
   textarea {
     display: block;
+    width: 90%;
     flex: 1;
     height: 40px;
     padding: 10px;
-    margin: 20px;
-    font-size: 16px;
+    margin-left: 20px;
+    font-family: "Pretendard";
     resize: none;
   }
 
   button {
     background-color: #1e4620;
     color: white;
-    width: 82px;
+    width: 90px;
     font-size: 1em;
     margin: 10px 20px;
-    padding: 6px 2px;
+    padding: 6px 4px;
     border-radius: 5px;
     cursor: pointer;
     text-align: center;

@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import LinkButton from "../LinkButton";
 import Writer from "./Writer";
 import { FormWrap, LinkWrap } from "./styledWritingPage";
+import { InputArea, Msg } from "../CharacterLimit";
 
 const WritingPage = () => {
   const [content, setContent] = useState("");
@@ -19,6 +20,7 @@ const WritingPage = () => {
     setCategory(event.target.value);
   };
   const handleTitleChange = (event) => {
+    if (event.target.value.length > 20) return;
     setTitle(event.target.value);
   };
 
@@ -42,23 +44,31 @@ const WritingPage = () => {
   };
 
   const uploadPost = () => {
-    Axios.post("/community/post/upload", {
-      category: category,
-      title: title,
-      content: content,
-      date: new Date(),
-    })
-      .then((res, req) => {
-        console.log(res);
-        if (!res.data.success) alert("게시글 작성에 실패했습니다.");
-        else {
-          alert("게시글 작성 성공!");
-          navigate("/community");
-        }
+    if (!content.length) {
+      alert("내용 입력은 필수입니다.");
+      return;
+    } else if (!title.length) {
+      alert("제목을 입력해주세요.");
+      return;
+    } else {
+      Axios.post("/community/post/upload", {
+        category: category,
+        title: title,
+        content: content,
+        date: new Date(),
       })
-      .catch((err) => {
-        console.log(err);
-      });
+        .then((res) => {
+          console.log(res);
+          if (!res.data.success) alert("게시글 작성에 실패했습니다.");
+          else {
+            alert("게시글 작성 성공!");
+            navigate("/community");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   useEffect(() => {
@@ -92,7 +102,7 @@ const WritingPage = () => {
                 <th>카테고리</th>
                 <td>
                   <select
-                    value={category}
+                    defaultValue={"자유"}
                     onChange={handleCategoryChange}
                     disabled={editMode}
                   >
@@ -106,11 +116,14 @@ const WritingPage = () => {
               <tr>
                 <th>제목</th>
                 <td>
-                  <input
-                    type="text"
-                    value={title}
-                    onChange={handleTitleChange}
-                  />
+                  <InputArea>
+                    <Msg>! 최대 20자 입력 가능</Msg>
+                    <input
+                      type="text"
+                      value={title}
+                      onChange={handleTitleChange}
+                    />
+                  </InputArea>
                 </td>
               </tr>
               <tr>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import "../../src/assets/font/font.css";
@@ -6,19 +6,21 @@ import { Comment, NewComment } from "./Comment.js";
 import LinkButton from "./LinkButton";
 import { LinkWrap } from "./WritingPage/styledWritingPage";
 import { TableWrap, CommentWrap, AuthBtnWrap } from "./styledPostView";
+import { LoginContext } from "../LoginContext";
 
 const PostViewPage = () => {
+  const { userId } = useContext(LoginContext);
   const [post, setPost] = useState({});
   const [comments, setComments] = useState([]);
-  const [isAuthor, setIsAuthor] = useState(true);
+  const [isAuthor, setIsAuthor] = useState(false);
   const params = useParams();
   let pid = params.pid;
 
   useEffect(() => {
     Axios.get(`/community/post/one?pid=${pid}`)
       .then((res) => {
-        console.log(res.data);
         setPost(res.data);
+        if (res.data.wname === userId) setIsAuthor(true);
       })
       .catch((err) => {
         console.log(err);
@@ -68,6 +70,7 @@ const PostViewPage = () => {
             content={item.content}
             pid={item.pid}
             cid={item.cid}
+            isAuthor={item.wname === userId}
             _id={item._id}
             key={item._id}
           />

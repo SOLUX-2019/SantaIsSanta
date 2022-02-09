@@ -10,17 +10,16 @@ import Profile from "./Profile";
 import BadgeCollection from "./BadgeCollection";
 
 const MyPage = () => {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
   const [postList, setPostList] = useState([]);
+  const [isLoading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     Axios.get("/api/user/info")
       .then((res) => {
         if (res.data.error) {
-          console.log(1);
           if (!res.data.isAuth) {
-            console.log(2);
             alert("로그인 후 이용해 주세요.");
             return navigate("/login");
           } else {
@@ -28,8 +27,9 @@ const MyPage = () => {
             return navigate("/");
           }
         } else {
-          console.log(3);
           setUser(res.data);
+          setLoading(false);
+          console.log(res.data);
         }
       })
       .catch((err) => {
@@ -41,7 +41,7 @@ const MyPage = () => {
         setPostList(res.data);
       })
       .catch((err) => {
-        //console.log(err);
+        console.log(err);
       });
   }, []);
 
@@ -49,16 +49,27 @@ const MyPage = () => {
     <>
       <Wrap>
         <LeftContainer>
-          <img src={user.img ? user.img : defaultImg} alt={"프로필 사진"} />
-          <Link className="goEdit" to="/modifyProfile">
-            회원정보 수정
-            <FaPencilAlt />
-          </Link>
-          <Profile user={user} />
+          {!isLoading && (
+            <>
+              <img
+                src={user.image ? user.image : defaultImg}
+                alt={"프로필 사진"}
+              />
+              <Link className="goEdit" to="/modifyProfile">
+                회원정보 수정
+                <FaPencilAlt />
+              </Link>
+              <Profile user={user} />
+            </>
+          )}
         </LeftContainer>
         <RightContainer>
-          <BadgeCollection postCount={postList.length} />
-          <PostList postList={postList} />
+          {!isLoading && (
+            <>
+              <BadgeCollection postCount={postList.length} />
+              <PostList postList={postList} />
+            </>
+          )}
         </RightContainer>
       </Wrap>
     </>
