@@ -13,6 +13,9 @@ const Wrap = styled.div`
   svg {
     margin-right: 3px;
   }
+  a:hover {
+    font-weight: 800;
+  }
 `;
 
 const LinkButton = ({ path, destName }) => {

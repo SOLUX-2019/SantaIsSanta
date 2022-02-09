@@ -9,6 +9,7 @@ const PostListPage = () => {
   const [postList, setPostList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageCount, setPageCount] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
   let limit = 10;
 
   const slicePostList = () => {
@@ -31,6 +32,7 @@ const PostListPage = () => {
       .then((res) => {
         setPostList(res.data.reverse());
         setPageCount(Math.ceil(res.data.length / limit));
+        setIsLoading(false);
       })
       .catch((err) => {});
   }, []);
@@ -40,7 +42,11 @@ const PostListPage = () => {
       <SearchBar />
       <table>
         <TableHead />
-        <TableBody postList={slicePostList()} />
+        {isLoading ? (
+          <div style={{ height: "367px" }} />
+        ) : (
+          <TableBody postList={slicePostList()} />
+        )}
       </table>
       <PaginationWrap>
         <FaAngleLeft className="page-btn" onClick={handlePrevPageButton} />

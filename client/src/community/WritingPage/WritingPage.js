@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import LinkButton from "../LinkButton";
 import Writer from "./Writer";
 import { FormWrap, LinkWrap } from "./styledWritingPage";
 import { InputArea, Msg } from "../CharacterLimit";
+import { LoginContext } from "../../LoginContext";
 
-const WritingPage = () => {
+const WritingPage = ({ history }) => {
+  const { isLoggedIn } = useContext(LoginContext);
   const [content, setContent] = useState("");
   const [category, setCategory] = useState("자유");
   const [title, setTitle] = useState("");
@@ -72,6 +74,10 @@ const WritingPage = () => {
   };
 
   useEffect(() => {
+    if (!isLoggedIn) {
+      alert("로그인 후 이용해주세요!");
+      navigate("/login");
+    }
     if (params.pid)
       Axios.get(`/community/post/one?pid=${params.pid}`)
         .then((res) => {
@@ -93,7 +99,7 @@ const WritingPage = () => {
         <LinkButton path={"/community"} destName="목록으로" />
       </LinkWrap>
       {isLoading ? (
-        ""
+        <div style={{ height: "720px" }} />
       ) : (
         <FormWrap>
           <table>
