@@ -5,7 +5,7 @@ import { FcApproval } from 'react-icons/fc';
 import { BsVectorPen } from 'react-icons/bs';
 import "../../assets/font/font.css";
 
-const MountainReview = ({mid}) => {
+const MountainReview = ({info}) => {
 
     return (
         <Review>
@@ -20,7 +20,7 @@ const MountainReview = ({mid}) => {
                         <span>산타는산타</span>
                         <FcApproval size={'18px'} />
                     </Id>
-                    <Text>드라마의 배경이 된 이유가 있는 산!</Text>
+                    <Text>{info.review}</Text>
                 </ReviewText>
             </ReviewContent>
         </Review>

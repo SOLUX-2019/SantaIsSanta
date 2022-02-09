@@ -2,10 +2,10 @@ import React from 'react';
 import { Header } from './styledInfoPage';
 import "../../assets/font/font.css";
 
-const MountainHeader = ({mid}) => {
+const MountainHeader = ({info}) => {
 
     return (
-        <Header>{mid}</Header>
+        <Header>{info.name}</Header>
     );
 };
 
