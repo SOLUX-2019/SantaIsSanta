@@ -63,11 +63,7 @@ const SearchBar = () => {
   return (
     <SearchWrap>
       <form onSubmit={() => null}>
-        <select
-          value={category}
-          onChange={handleCategoryChange}
-          defaultValue={category}
-        >
+        <select onChange={handleCategoryChange} defaultValue={category}>
           <option value="all">전체</option>
           <option value="review">후기</option>
           <option value="new">나만 아는 산</option>
