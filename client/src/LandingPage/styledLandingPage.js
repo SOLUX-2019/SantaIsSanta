@@ -1,16 +1,15 @@
 import styled from "styled-components";
-import bg1 from "../assets/img/landing/001.png";
-import bg2 from "../assets/img/landing/004.png";
+import bg1 from "../assets/img/landing/003.png";
+import bg2 from "../assets/img/landing/001.png";
 
 export const Page1Wrap = styled.div`
   width: 100%;
-  height: 100vh;
-  background-image: url(${bg2});
+  height: 1280px;
+  background-image: url(${bg1});
   background-repeat: no-repeat;
   background-size: 100% 100%;
   background-attachment: fixed;
   display: flex;
-
   flex-direction: column;
   text-align: center;
   color: black;
@@ -31,6 +30,24 @@ export const Page1Wrap = styled.div`
     width: 100%;
     height: 100%;
   }
+  a {
+    color: black;
+    text-decoraion: none;
+    align-items: center;
+  }
+  svg {
+    width: 25px;
+    height: 25px;
+  }
+  h3,
+  a {
+    display: flex;
+    width: 210px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    margin: auto;
+    justify-content: center;
+  }
 `;
 export const Filter = styled.div`
 width: inherit;
@@ -43,7 +60,7 @@ export const Page2Wrap = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100vh;
-  background-image: url(${bg1});
+  background-image: url(${bg2});
   background-repeat: no-repeat;
   background-size: 100% 100%;
 
@@ -74,7 +91,7 @@ export const Page2Wrap = styled.div`
 
 export const Gap = styled.div`
   width: 100%;
-  height: 20vh;
-    background-color: #b8e9ff;
-  );
+  height: 100px;
+  background-color: #5fd082;
+  background-attachment: fixed;
 `;

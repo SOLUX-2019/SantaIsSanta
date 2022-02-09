@@ -13,6 +13,7 @@ import PostViewPage from "./community/PostView";
 import Mountain from "./Mountain/InfoPage/Mountain";
 import RegionPage from "./Mountain/RegionPage/RegionPage";
 import Footer from "./Footer";
+import TextComponent from "./LandingPage/text";
 
 function App() {
   return (

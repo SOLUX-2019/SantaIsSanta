@@ -1,12 +1,15 @@
 import TextComponent from "./text";
-import WeatherInfo from "./WeatherInfo";
 import logo from "../assets/img/landing/santaBlack.png";
-import { Slide, Fade, AttentionSeeker } from "react-awesome-reveal";
+import { Fade, JackInTheBox } from "react-awesome-reveal";
 import { FaAngleRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { Page1Wrap, Page2Wrap, Gap } from "./styledLandingPage";
+import { useContext } from "react";
+import { LoginContext } from "../LoginContext";
 
 const LandingPage = () => {
+  const { isLoggedIn, userId } = useContext(LoginContext);
+
   return (
     <>
       <Page1Wrap>
@@ -15,11 +18,21 @@ const LandingPage = () => {
             <b>MZ세대</b>를 위한 등산 커뮤니티
           </h1>
         </Fade>
-        <Fade triggerOnce={false} direction={"up"} cascade delay={1010}>
+        <JackInTheBox triggerOnce={false} direction={"up"} delay={900}>
           <img src={logo} alt="산타"></img>
+        </JackInTheBox>
+        <Fade triggerOnce={false} delay={900}>
+          {isLoggedIn ? (
+            <h3>{userId}님 반가워요👋</h3>
+          ) : (
+            <Link to="/join">
+              <b>지금 시작하기 (회원가입)</b>
+              <FaAngleRight />
+            </Link>
+          )}
         </Fade>
       </Page1Wrap>
-      <Gap></Gap>
+      <TextComponent />
       <Page2Wrap>
         <Fade triggerOnce={false} direction={"up"} cascade>
           <h2>
