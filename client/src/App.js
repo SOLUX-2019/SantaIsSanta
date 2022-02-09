@@ -12,6 +12,8 @@ import WritingPage from "./community/WritingPage/WritingPage";
 import PostViewPage from "./community/PostView";
 import Mountain from "./Mountain/InfoPage/Mountain";
 import RegionPage from "./Mountain/RegionPage/RegionPage";
+import Footer from "./Footer";
+import TextComponent from "./LandingPage/text";
 
 function App() {
   return (
@@ -33,6 +35,7 @@ function App() {
           <Route path="/mountain/info" element={<Mountain />} />
         </Routes>
       </LoginContextProvider>
+      <Footer />
     </Router>
   );
 }
