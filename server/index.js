@@ -347,9 +347,11 @@ app.get("/mountain/region/info", (req, res) => {
         console.log(mountain_all);
         var mountain_list = []
         for ( let i = 0; i< mountain_all.length; i++ ){
+            _id = mountain_all[i]._id
             id = mountain_all[i].mid;
             name = mountain_all[i].name;
-            mountain_list.push({mid: id, name: name})
+            photo = mountain_all[i].photo;
+            mountain_list.push({_id : _id, mid: id, name: name, photo: photo})
         }
         return res.status(200).send(mountain_list);
     });
