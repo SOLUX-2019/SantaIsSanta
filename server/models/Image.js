@@ -1,5 +1,6 @@
-import mongoose from 'mongoose';
+const { ObjectId } = require('bson');
 
+const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const ImageScehma = new Schema({
   img: Buffer,

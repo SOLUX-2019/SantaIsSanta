@@ -21,20 +21,27 @@ const corsOptions = {
 
 
 const upload = multer({
-    storage: multer.diskStorage({
-      destination: function (req, file, cb) {
-        cb(null, 'uploads/');
-      },
-      filename: function (req, file, cb) {
-        cb(null, file.originalname);
-      }
-    }),
+    storage: multer.memoryStorage(),
   });
   
   app.post('/up', upload.single('img'), (req, res) => {
     console.log(req.file); 
   });
 
+
+
+  app.post('/upload', upload.single('image'), async (req, res) => {
+    try {
+      const img = req.file.buffer;
+      if (img.truncated) return res.status(413);
+      const image = new Image({ img });
+      await image.save();
+      return res.json(`${image._id}`);
+    } catch (e) {
+      return res.status(500);
+    }
+  });
+  
 // application/x-www-form-urlendcoded 형식의 데이터를
 // 가져와서 분석할 수 있도록
 app.use(express.urlencoded({ extended: true }));
