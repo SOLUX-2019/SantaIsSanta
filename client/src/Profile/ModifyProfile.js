@@ -1,5 +1,6 @@
 import Axios from 'axios';
 import React, { useState, useEffect }from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Wrapper, Container, Header, Form, RowGroup, Row, Title, InputArea, Input, Msg, Select, Button } from '../Join/styledJoin';
 
 const ModifyProfile = () => {
@@ -14,6 +15,7 @@ const ModifyProfile = () => {
     const [userInfo, setUserInfo] = useState("");
     const [birth, setBirth] = useState(null);
     const [gender, setGender] = useState(null);
+    const navigate = useNavigate();
 
     const birthParser = (birth) => {
         if(birth == null) return null;
@@ -53,7 +55,7 @@ const ModifyProfile = () => {
             //성공
             if(res.data.success) {
                 alert('회원정보가 수정되었습니다.');
-                window.location.href = '/myPage';
+                navigate('/myPage');
             }
             //실패    
             else
