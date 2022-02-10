@@ -39,11 +39,23 @@ const PostListPage = () => {
 
   return (
     <TableWrap>
-      <SearchBar />
+      <SearchBar
+        setPostList={(list) => {
+          setPostList(list);
+        }}
+        setPagination={(num) => {
+          setCurrentPage(1);
+          setPageCount(Math.ceil(num / limit));
+        }}
+      />
       <table>
         <TableHead />
         {isLoading ? (
-          <div style={{ height: "367px" }} />
+          <tr>
+            <td>
+              <div style={{ height: "300px" }} />
+            </td>
+          </tr>
         ) : (
           <TableBody postList={slicePostList()} />
         )}
