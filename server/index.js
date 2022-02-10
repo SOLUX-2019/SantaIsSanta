@@ -248,9 +248,9 @@ app.delete("/community/post/delete/:id", (req, res) => {
     });
 });
 
-// 전체 게시글 불러오기
+// 게시글 검색
 app.get("/community/post/search", (req, res) => {
-    Post.find({title: req.body.title, cateory: req.body.cateory}, (err, post_search) => {
+    Post.find({title: req.query["title"], category: req.query["category"]}, (err, post_search) => {
         if (!post_search) {
         console.log("검색 키워드에 해당하는 게시글이 없습니다.");
         return res.json({
