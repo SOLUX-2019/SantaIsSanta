@@ -250,25 +250,47 @@ app.delete("/community/post/delete/:id", (req, res) => {
 
 // 게시글 검색
 app.get("/community/post/search", (req, res) => {
-    Post.find({/*title: req.query["title"], */category: req.query["category"]}, (err, post_search) => {
-        if (!post_search) {
-        console.log("검색 키워드에 해당하는 게시글이 없습니다.");
-        return res.json({
-            Success: false,
-            message: "검색 키워드에 해당하는 게시글이 없습니다.",
-        });
-        }
-        if (err) return res.json({ success: false, err });
-        var search_data = []
-        for ( let i = 0; i<post_search.length; i++){
-            if (post_search[i].title.indexOf(req.query["title"]) == -1 ){
-                continue;
+    if (req.query["category"] == "전체"){
+        Post.find({}, (err, post_all) => {
+            if (!post_all) {
+            console.log("게시글이 없습니다.");
+            return res.json({
+                Success: false,
+                message: "게시글이 없습니다.",
+            });
             }
-            search_data.push(post_search[i])
-        }
-        console.log(search_data);
-        return res.status(200).send(search_data);
-    });
+            if (err) return res.json({ success: false, err });
+            var search_data = []
+            for ( let i = 0; i<post_all.length; i++){
+                if (post_all[i].title.indexOf(req.query["title"]) == -1 ){
+                    continue;
+                }
+                search_data.push(post_all[i])
+            }
+            return res.status(200).send(search_data);
+        });
+    } else{
+        Post.find({/*title: req.query["title"], */category: req.query["category"]}, (err, post_search) => {
+            if (!post_search) {
+            console.log("검색 키워드에 해당하는 게시글이 없습니다.");
+            return res.json({
+                Success: false,
+                message: "검색 키워드에 해당하는 게시글이 없습니다.",
+            });
+            }
+            if (err) return res.json({ success: false, err });
+            var search_data = []
+            for ( let i = 0; i<post_search.length; i++){
+                if (post_search[i].title.indexOf(req.query["title"]) == -1 ){
+                    continue;
+                }
+                search_data.push(post_search[i])
+            }
+            console.log(search_data);
+            return res.status(200).send(search_data);
+        });
+    }
+
 });
 
 //-----------댓글-----------
