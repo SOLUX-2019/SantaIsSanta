@@ -1,12 +1,16 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Info, InfoImg, InfoText, InfoList } from './styledInfoPage';
+import { imgUrl } from './MountainImg';
 import "../../assets/font/font.css";
 
 const MountainInfo = ({info}) => {
+    const name = info.name;
+    const path = imgUrl[name];
+
     return (
         <Info>
             <InfoImg>
-            <img src={require(`../../assets/img/mountainImg/${info.name}.png`)} alt={`${info.name}`} />
+                <img src={path} alt={`${info.name}`} />
             </InfoImg>
             <InfoText>
                 {info.content}
