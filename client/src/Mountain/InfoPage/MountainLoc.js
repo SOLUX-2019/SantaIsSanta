@@ -4,17 +4,17 @@ import { Loc, PreviousPage, LastPage } from './styledInfoPage';
 import { FaMountain, FaAngleRight } from "react-icons/fa";
 import "../../assets/font/font.css";
 
-const MountainLoc = ({region, mid}) => {
+const MountainLoc = ({info}) => {
 
     return (
         <Loc>
             <FaMountain />
             <FaAngleRight />
             <PreviousPage>
-                <Link to={`/mountain/region?region=${region}`} className="link" title="페이지 이동"> {region}</Link>
+                <Link to={`/mountain/region?region=${info.region}`} className="link" title="페이지 이동"> {info.region}</Link>
             </PreviousPage>
             <FaAngleRight />
-            <LastPage> {mid}</LastPage>
+            <LastPage> {info.name}</LastPage>
         </Loc>
     );
 };

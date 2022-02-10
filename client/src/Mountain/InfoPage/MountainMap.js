@@ -3,13 +3,13 @@ import React, { useEffect } from 'react';
 import { Wrapper, MapContainer, Adress } from './styledInfoPage';
 import "../../assets/font/font.css";
 
-const MountainMap = ({mid}) => {
+const MountainMap = ({info}) => {
   // const { kakao } = window;
 
   useEffect(() => {
     const container = document.getElementById('myMap');
     const options = {
-      center: new kakao.maps.LatLng(35.12, 129.1),
+      center: new kakao.maps.LatLng(35.337643756384814, 127.73072713351624),
       level: 3
     };
     // 지도를 생성합니다.
@@ -17,7 +17,7 @@ const MountainMap = ({mid}) => {
     // 주소-좌표 변환 객체를 생성합니다.
     const geocoder = new kakao.maps.services.Geocoder();
     // 주소로 좌표를 검색합니다..
-    geocoder.addressSearch('경남 함양군 마천면 추성리 산 100', function (result, status) {
+    geocoder.addressSearch(`${info.address}`, function (result, status) {
 
       // 정상적으로 검색이 완료됐으면 
       if (status === kakao.maps.services.Status.OK) {
@@ -32,7 +32,7 @@ const MountainMap = ({mid}) => {
   
         // 인포윈도우로 장소에 대한 설명을 표시합니다
         var infowindow = new kakao.maps.InfoWindow({
-          content: '<div style="width:150px;color:#f44336;text-align:center;padding:6px 0;">장소에대한설명</div>'
+          content: `<div style="width:150px;color:#f44336;text-align:center;padding:6px 0;">${info.name}</div>`
         });
         infowindow.open(map, marker);
   
@@ -40,7 +40,7 @@ const MountainMap = ({mid}) => {
         map.setCenter(coords);
       }
     })
-  }, []);
+  }, [info]);
 
   return (
     <Wrapper>
@@ -50,7 +50,7 @@ const MountainMap = ({mid}) => {
       <Adress>
         <dl>
           <dt>주소</dt>
-          <dd>경남 함양군 마천면 추성리 산 100</dd>
+          <dd>{info.address}</dd>
         </dl>
       </Adress>
     </Wrapper>
