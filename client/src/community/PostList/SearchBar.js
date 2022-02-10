@@ -1,3 +1,4 @@
+import Axios from "axios";
 import { useState } from "react";
 import styled from "styled-components";
 
@@ -48,35 +49,55 @@ const SearchWrap = styled.div`
   }
 `;
 
-const SearchBar = () => {
-  const [string, setString] = useState("");
+const SearchBar = ({ setPostList, setPagination }) => {
+  const [title, setTitle] = useState("");
   const [category, setCategory] = useState("-");
 
   const handleChange = (event) => {
-    setString(event.target.value);
+    setTitle(event.target.value);
   };
 
   const handleCategoryChange = (event) => {
     setCategory(event.target.value);
   };
 
+  const sumbitSearch = () => {
+    Axios.get(`/community/post/search?title=${title}&category=${category}`)
+      .then((res) => {
+        if (res.data.Success != undefined) {
+          console.log("err!");
+          return false;
+        } else {
+          if (!res.data.length) alert("해당 게시물을 찾을 수 없습니다.");
+          setPostList(res.data);
+          setPagination(res.data.length);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    return false;
+  };
+
   return (
     <SearchWrap>
-      <form onSubmit={() => null}>
+      <form onSubmit={sumbitSearch}>
         <select onChange={handleCategoryChange} defaultValue={category}>
-          <option value="all">전체</option>
-          <option value="review">후기</option>
-          <option value="new">나만 아는 산</option>
-          <option value="people">크루원 모집</option>
-          <option value="free">자유</option>
+          <option value="전체">전체</option>
+          <option value="후기">후기</option>
+          <option value="나만 아는 산">나만 아는 산</option>
+          <option value="크루원 모집">크루원 모집</option>
+          <option value="자유">자유</option>
         </select>
         <input
           type="text"
           placeholder="찾고 싶은 게시글의 제목을 입력해주세요."
-          value={string}
+          value={title}
           onChange={handleChange}
         />
-        <button className="buttonClass">검색</button>
+        <button className="buttonClass" type="button" onClick={sumbitSearch}>
+          검색
+        </button>
       </form>
     </SearchWrap>
   );
