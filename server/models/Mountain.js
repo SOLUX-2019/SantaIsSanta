@@ -12,10 +12,6 @@ const mountainSchema = mongoose.Schema({
     mid:{
         type: Number
     },
-    
-    photo:{
-        type:String,
-    },
     content:{
         type:String,
     },

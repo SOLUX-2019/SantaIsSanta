@@ -248,6 +248,22 @@ app.delete("/community/post/delete/:id", (req, res) => {
     });
 });
 
+// 전체 게시글 불러오기
+app.get("/community/post/search", (req, res) => {
+    Post.find({title: req.body.title, cateory: req.body.cateory}, (err, post_search) => {
+        if (!post_search) {
+        console.log("검색 키워드에 해당하는 게시글이 없습니다.");
+        return res.json({
+            Success: false,
+            message: "검색 키워드에 해당하는 게시글이 없습니다.",
+        });
+        }
+        if (err) return res.json({ success: false, err });
+        console.log(post_search);
+        return res.status(200).send(post_search);
+    });
+});
+
 //-----------댓글-----------
 //댓글 저장
 app.post("/community/comment/add", auth, (req, res) => {
@@ -350,8 +366,7 @@ app.get("/mountain/region/info", (req, res) => {
             _id = mountain_all[i]._id
             id = mountain_all[i].mid;
             name = mountain_all[i].name;
-            photo = mountain_all[i].photo;
-            mountain_list.push({_id : _id, mid: id, name: name, photo: photo})
+            mountain_list.push({_id : _id, mid: id, name: name})
         }
         return res.status(200).send(mountain_list);
     });
