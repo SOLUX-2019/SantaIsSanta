@@ -248,7 +248,7 @@ app.delete("/community/post/delete/:id", (req, res) => {
     });
 });
 
-// 전체 게시글 불러오기
+// 게시글 검색
 app.get("/community/post/search", (req, res) => {
     Post.find({title: req.body.title, cateory: req.body.cateory}, (err, post_search) => {
         if (!post_search) {
