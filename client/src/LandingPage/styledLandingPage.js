@@ -4,7 +4,7 @@ import bg2 from "../assets/img/landing/001.png";
 
 export const Page1Wrap = styled.div`
   width: 100%;
-  height: 1280px;
+  height: 1080px;
   background-image: url(${bg1});
   background-repeat: no-repeat;
   background-size: 100% 100%;
@@ -59,7 +59,7 @@ height: inherit;
 export const Page2Wrap = styled.div`
   flex-direction: column;
   width: 100%;
-  height: 100vh;
+  height: 110vh;
   background-image: url(${bg2});
   background-repeat: no-repeat;
   background-size: 100% 100%;

@@ -51,7 +51,7 @@ const SearchWrap = styled.div`
 
 const SearchBar = ({ setPostList, setPagination }) => {
   const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("-");
+  const [category, setCategory] = useState("전체");
 
   const handleChange = (event) => {
     setTitle(event.target.value);

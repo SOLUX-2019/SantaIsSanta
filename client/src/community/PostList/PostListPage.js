@@ -51,11 +51,13 @@ const PostListPage = () => {
       <table>
         <TableHead />
         {isLoading ? (
-          <tr>
-            <td>
-              <div style={{ height: "300px" }} />
-            </td>
-          </tr>
+          <tbody>
+            <tr>
+              <td>
+                <div style={{ height: "300px" }} />
+              </td>
+            </tr>
+          </tbody>
         ) : (
           <TableBody postList={slicePostList()} />
         )}
