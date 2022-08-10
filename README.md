@@ -9,11 +9,6 @@
 
 # 🙍‍♀️Contributor
 --------------
-PART| Member|
----|---|
-Back-End|[김민지](https://github.com/mjms0214) [송한나](https://github.com/hannasss)
-Front-End|[이주은](https://github.com/lizuAg) [조서인](https://github.com/seoin-cho)
-
 Member|PART|TASK|
 ---|---|---|
 [김민지](https://github.com/mjms0214)|Back-End|회원 정보, 커뮤니티 게시글/댓글 조회/수정/지역별 산/목록 조회, 검색, 로그인|
