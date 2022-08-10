@@ -3,8 +3,9 @@
 - 개발 기간: 2022.09.12 ~ 2022.02.11
 # ✔ Project
 --------------
-![deli](https://user-images.githubusercontent.com/71828832/130247602-0686ed85-c09d-41d8-98a5-43308d49ada7.png)
-2030 세대를 위한 등산 커뮤니티 사이트, 산타는 산타🏞
+2030 세대를 위한 등산 커뮤니티 사이트, 
+<center><img src="https://user-images.githubusercontent.com/68546023/183910944-b73f9478-8418-4348-9c60-256cb9e48ab0.png" width="400" height="400"></center>  
+
 
 # 🙍‍♀️Contributor
 --------------
@@ -13,21 +14,27 @@ PART| Member|
 Back-End|[김민지](https://github.com/mjms0214) [송한나](https://github.com/hannasss)
 Front-End|[이주은](https://github.com/lizuAg) [조서인](https://github.com/seoin-cho)
 
-
+Member|PART|TASK|
+---|---|---|
+[김민지](https://github.com/mjms0214)|Back-End|회원 정보, 커뮤니티 게시글/댓글 조회/수정/지역별 산/목록 조회, 검색, 로그인|
+[송한나](https://github.com/hannasss)|Back-End|회원가입, 로그인, 커뮤니티 게시글/댓글 저장 및 삭제|
+[이주은](https://github.com/lizuAg)|Front-End|마이페이지, 랜딩페이지, 커뮤니티 페이지|
+[조서인](https://github.com/seoin-cho)|Front-End|산 소개, 회원정보 수정, 회원가입, 로그인 페이지|  
+  
+  
 # 🛠Tech Stack and Library
 --------------
 ```
-React
-JavaScript ES6
-eslint
-prettier
-axios
-styled-component
-antd
-react-router-dom
-node js
-mongo DB
-Kakao map API
+- React
+- JavaScript ES6
+- eslint
+- prettier
+- axios
+- styled-component
+- react-router-dom
+- node js
+- mongo DB
+- Kakao map API
 ```
 
 # 🖼Views
